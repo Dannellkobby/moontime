@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "35940773750",
+    "project_id": "moontime-io",
+    "storage_bucket": "moontime-io.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:35940773750:android:b9f1cdd8c865fd4be7d457",
+        "android_client_info": {
+          "package_name": "co.desense.moontime"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "35940773750-09dpmfjdot9n6cajbrgddlprpe25qr53.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "co.desense.moontime",
+            "certificate_hash": "04c31197e58a6a7560bafb3ba168b981121522b2"
+          }
+        },
+        {
+          "client_id": "35940773750-t04gkatq05vfn11du3n9fsso7nr43h9q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAuNnQcxKisqxuinl-C4FDbogQDUS9vqZk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "35940773750-t04gkatq05vfn11du3n9fsso7nr43h9q.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "35940773750-7q2cutjfp0dko1rk3i8fikm2urd77h20.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "co.desense.moontime"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
