@@ -17,9 +17,9 @@ dependencies:
   firebase_analytics: ^10.0.7
   firebase_crashlytics: ^3.0.7
   flutter_secure_storage: ^6.1.0
+  tuple: ^2.0.1
   get: ^4.6.5
   get_storage: ^2.0.3
-  flutter_svg: ^1.1.6
   easy_debounce: ^2.0.2+1
   url_launcher: ^6.1.7
   permission_handler: ^10.2.0
@@ -35,6 +35,17 @@ dependencies:
   readmore: ^2.2.0
   animate_do: ^3.0.2
   cupertino_icons: ^1.0.2
+  flutter_animate: ^2.0.1
+  iconly: ^1.0.1
+  flutter_native_splash: ^2.2.16
+  blurrycontainer: ^1.0.2
+  carousel_slider: ^4.2.0
+  flutter_staggered_grid_view: ^0.6.2
+  flutter_rating_bar: ^4.0.1
+  flutter_html: ^2.2.1
+
+dependency_overrides:
+  flutter_svg: ^1.1.6
 
 dev_dependencies:
   flutter_test:
@@ -42,7 +53,44 @@ dev_dependencies:
 
   flutter_lints: ^2.0.0
 
-flutter:
 
+flutter:
   uses-material-design: true
+  fonts:
+    - family: Isidora
+      fonts:
+        - asset: assets/fonts/isidora-medium.otf
+          weight: 100
+        - asset: assets/fonts/isidora-semibold.otf
+          weight: 200
+        - asset: assets/fonts/isidora-semibold.otf
+          weight: 300
+        - asset: assets/fonts/isidora-bold.otf
+          weight: 400
+        - asset: assets/fonts/isidora-bold.otf
+          weight: 500
+        - asset: assets/fonts/isidora-black.otf
+          weight: 600
+        - asset: assets/fonts/isidora-black.otf
+          weight: 700
+    - family: IsidoraSans
+      fonts:
+        - asset: assets/fonts/IsidoraSans-Thin.ttf
+          weight: 100
+        - asset: assets/fonts/IsidoraSans-Light.otf
+          weight: 200
+        - asset: assets/fonts/IsidoraSans-Regular.ttf
+          weight: 300
+        - asset: assets/fonts/IsidoraSans-Medium.otf
+          weight: 400
+        - asset: assets/fonts/IsidoraSans-SemiBold.otf
+          weight: 500
+        - asset: assets/fonts/IsidoraSans-Bold.otf
+          weight: 600
+        - asset: assets/fonts/IsidoraSans-Black.otf
+          weight: 700
+
+  assets:
+    - assets/images/
+    - assets/icons/
 

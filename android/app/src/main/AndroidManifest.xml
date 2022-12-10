@@ -1,5 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="co.desense.moontime">
+    <uses-permission android:name="android.permission.INTERNET"/>
    <application
         android:label="moontime"
         android:name="${applicationName}"
