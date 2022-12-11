@@ -1,3 +1,4 @@
+import 'dart:ffi';
 import 'dart:math';
 
 import 'package:blurrycontainer/blurrycontainer.dart';
@@ -8,20 +9,28 @@ import 'package:get/get.dart';
 import 'package:iconly/iconly.dart';
 import 'package:moontime/models/show.dart';
 import 'package:moontime/utilities/colours.dart';
+import 'package:moontime/utilities/constants.dart';
 import 'package:moontime/utilities/strings.dart';
 import 'package:moontime/views/screens/home.dart';
 
 class CardShow extends StatelessWidget {
   final Show show;
+  final bool showBottom;
+  final double? radius;
+  final double? height;
 
   const CardShow({
     Key? key,
     required this.show,
+     this.showBottom=true,
+     this.radius,
+     this.height,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final bRadii = BorderRadius.circular(6);
+    final bRadii = BorderRadius.circular(radius??kRadiusSmall);
+    // borderRadius: BorderRadius.circular(radius??kRadiusSmall),
     return ClipRRect(
       borderRadius: bRadii,
       child: InkWell(
@@ -35,9 +44,13 @@ class CardShow extends StatelessWidget {
                     const MoontimePlaceholder(logoColor: Colours.redError),
                 placeholder: (c, err) => const MoontimePlaceholder(),
                 alignment: Alignment.topCenter,
-                // height: 100,
+                // height: double.maxFinite,
+                // width: double.maxFinite,
+
+                height: height,
                 // width: 82,
                 imageUrl: '${show.image?.medium}'),
+            if(showBottom)
             BlurryContainer(
               blur: 16,
               elevation: 0,

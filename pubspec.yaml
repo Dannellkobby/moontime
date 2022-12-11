@@ -21,7 +21,6 @@ dependencies:
   get: ^4.6.5
   get_storage: ^2.0.3
   easy_debounce: ^2.0.2+1
-  url_launcher: ^6.1.7
   permission_handler: ^10.2.0
   package_info_plus: ^3.0.2
   device_info_plus: ^8.0.0
@@ -32,7 +31,6 @@ dependencies:
   like_button: ^2.0.5
   shimmer: ^2.0.0
   custom_pop_up_menu: ^1.2.4
-  readmore: ^2.2.0
   animate_do: ^3.0.2
   cupertino_icons: ^1.0.2
   flutter_animate: ^2.0.1
@@ -43,6 +41,7 @@ dependencies:
   flutter_staggered_grid_view: ^0.6.2
   flutter_rating_bar: ^4.0.1
   flutter_html: ^2.2.1
+  intl: ^0.17.0
 
 dependency_overrides:
   flutter_svg: ^1.1.6

@@ -1,5 +1,6 @@
 
 import 'package:moontime/models/image.dart';
+import 'package:moontime/models/rating.dart';
 import 'package:moontime/models/show.dart';
 
 class Episode {
@@ -11,6 +12,7 @@ class Episode {
   String? airtime;
   Show? show;
   Image? image;
+  Rating? rating;
 
   static List<Episode> listFromJson(list) => List<Episode>.from(list.map((i) => Episode.fromJson(i)));
   /*static List<Episode> listFromJson(list) {
@@ -56,7 +58,8 @@ class Episode {
         url = json['url'],
         name = json['name'],
         type = json['type'],
-        summary = json['summary'],
+        rating =json['rating'] != null ? Rating.fromJson(json['rating']) : null,
+      summary = json['summary'],
         language = json['language'],
         status = json['status'],
         airdate = DateTime.tryParse('${json['airdate']}'),
@@ -73,6 +76,7 @@ class Episode {
         'name': name,
         'type': type,
         'language': language,
+        'rating': rating?.toJson(),
         'status': status,
         'summary': summary,
         'airdate': airdate?.toString(),

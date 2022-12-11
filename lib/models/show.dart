@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart' hide Image;
 import 'package:moontime/models/network.dart';
 import 'package:moontime/models/rating.dart';
@@ -21,6 +19,8 @@ class Show {
 
   static List<Show> listFromJson(list) =>
       List<Show>.from(list.map((i) => Show.fromJson(i)));
+  static List<Show> listFromEmbeddedShowsJson(list) =>
+      List<Show>.from(list.map((i) => Show.fromJson(i['_embedded']['show'])));
 
   Show.fromJson(Map<String, dynamic> json)
       : id = json['id'],

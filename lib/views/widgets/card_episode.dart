@@ -3,25 +3,39 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:moontime/models/episode.dart';
+import 'package:moontime/models/show.dart';
 import 'package:moontime/utilities/colours.dart';
+import 'package:moontime/utilities/constants.dart';
 import 'package:moontime/utilities/strings.dart';
 import 'package:moontime/views/screens/home.dart';
 
 class CardEpisode extends StatelessWidget {
+  final bool tapToDetails;
   final Episode episode;
+  final Show? show;
   final double? radius;
   const CardEpisode({
-    Key? key, required this.episode,this.radius,
+    Key? key, required this.episode,this.show,this.tapToDetails =true,this.radius,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
-      borderRadius: BorderRadius.circular(radius??16),
+      borderRadius: BorderRadius.circular(radius??kRadiusSmall),
       child: InkWell(
-        borderRadius: BorderRadius.circular(radius??16),
+        borderRadius: BorderRadius.circular(radius??kRadiusSmall),
         onTap: () {
-          if(episode.show!=null) {
+          if(tapToDetails)
+            {
+              Get.toNamed(Strings.routeEpisodeDetails,
+                  arguments: {
+                Strings.keyShow: show??episode.show,
+                Strings.keyEpisode: episode
+              });
+
+            }
+
+          else if(episode.show!=null) {
             Get.toNamed(Strings.routeShowDetails,
               arguments: {Strings.keyShow: episode.show});
           }

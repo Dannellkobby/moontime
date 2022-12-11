@@ -6,21 +6,20 @@ import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
 import 'package:iconly/iconly.dart';
+import 'package:intl/intl.dart';
 import 'package:like_button/like_button.dart';
-import 'package:moontime/controllers/show_details_controller.dart';
-import 'package:moontime/models/show.dart';
+import 'package:moontime/controllers/episode_details_controller.dart';
+import 'package:moontime/models/episode.dart';
 import 'package:moontime/utilities/colours.dart';
 import 'package:moontime/utilities/constants.dart';
 import 'package:moontime/utilities/widgets.dart';
 import 'package:moontime/views/screens/home.dart';
 import 'package:moontime/views/widgets/card_cast.dart';
-import 'package:moontime/views/widgets/card_episode.dart';
-import 'package:moontime/views/widgets/scaffold_gradient.dart';
 
-class ShowDetails extends GetView<ShowDetailsController> {
-  final Show show;
+class EpisodeDetails extends GetView<EpisodeDetailsController> {
+  final Episode episode;
 
-  const ShowDetails({Key? key, required this.show}) : super(key: key);
+  const EpisodeDetails({Key? key, required this.episode}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -32,16 +31,19 @@ class ShowDetails extends GetView<ShowDetailsController> {
               CachedNetworkImage(
                   fit: BoxFit.fill,
                   alignment: Alignment.center,
-                  errorWidget: (c, err, obj) => const MoontimePlaceholder(
+                  errorWidget: (c, err, obj) =>
+                  const MoontimePlaceholder(
                       logoSize: 120,
                       height: double.maxFinite,
                       logoColor: Colours.redError),
-                  placeholder: (c, err) => const MoontimePlaceholder(
-                        height: double.maxFinite,
-                      ),
+                  placeholder: (c, err) =>
+                  const MoontimePlaceholder(
+                    height: double.maxFinite,
+                  ),
                   height: double.maxFinite,
                   width: double.maxFinite,
-                  imageUrl: '${show.image?.medium}'),
+                  imageUrl:
+                  '${episode.image?.medium ?? episode.show?.image?.medium}'),
               BlurryContainer(
                 blur: 40,
                 elevation: 0,
@@ -69,8 +71,20 @@ class ShowDetails extends GetView<ShowDetailsController> {
                   systemOverlayStyle: const SystemUiOverlayStyle(
                       statusBarBrightness: Brightness.light,
                       statusBarIconBrightness: Brightness.light),
-                  collapsedHeight: (kToolbarHeight * 2) - MediaQuery.of(context).viewPadding.top,
-                  expandedHeight: ((4 / 6) * context.height),
+                  collapsedHeight: (kToolbarHeight * 2) -
+                      MediaQuery
+                          .of(context)
+                          .viewPadding
+                          .top,
+                  expandedHeight:
+                  (episode.image != null || episode.show?.image == null)
+                      ? ((9 / 16) * context.width) +
+                      ((kToolbarHeight * 2) -
+                          MediaQuery
+                              .of(context)
+                              .viewPadding
+                              .top)
+                      : (((4 / 6) * context.height)),
                   leading: IconButton(
                       onPressed: () => Navigator.maybePop(context),
                       icon: const Icon(
@@ -79,15 +93,16 @@ class ShowDetails extends GetView<ShowDetailsController> {
                       )),
                   actions: [
                     LikeButton(
-                        likeBuilder: (bool liked) => liked
+                        likeBuilder: (bool liked) =>
+                        liked
                             ? const Icon(
-                                IconlyBold.heart,
-                                color: Colours.moonOrangeLight,
-                              )
+                          IconlyBold.heart,
+                          color: Colours.moonOrangeLight,
+                        )
                             : const Icon(
-                                IconlyBroken.heart,
-                                color: Colours.white,
-                              )),
+                          IconlyBroken.heart,
+                          color: Colours.white,
+                        )),
                     const SizedBox(
                       width: kFormSpacing,
                     )
@@ -96,31 +111,34 @@ class ShowDetails extends GetView<ShowDetailsController> {
                     children: [
                       CachedNetworkImage(
                           fit: BoxFit.fitWidth,
-                          alignment: Alignment.center,
+                          alignment: Alignment.topCenter,
                           errorWidget: (c, err, obj) =>
-                              const MoontimePlaceholder(
-                                  logoSize: 160,
-                                  blur: 12,
-                                  height: double.maxFinite,
-                                  logoColor: Colours.redError),
-                          placeholder: (c, err) => const MoontimePlaceholder(
-                                height: double.maxFinite,
-                              ),
+                          const MoontimePlaceholder(
+                              logoSize: 160,
+                              blur: 12,
+                              height: double.maxFinite,
+                              logoColor: Colours.redError),
+                          placeholder: (c, err) =>
+                          const MoontimePlaceholder(
+                            height: double.maxFinite,
+                          ),
                           height: double.maxFinite,
                           width: double.maxFinite,
-                          imageUrl: '${show.image?.original}'),
+                          imageUrl:
+                          '${episode.image?.original ??
+                              episode.show?.image?.original}'),
                       Container(
                         height: 96,
                         width: double.maxFinite,
                         decoration: BoxDecoration(
                             gradient: LinearGradient(
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                          colors: [
-                            Colours.darkBg.withOpacity(0.35),
-                            const Color(0x00000000),
-                          ],
-                        )),
+                              begin: Alignment.topCenter,
+                              end: Alignment.bottomCenter,
+                              colors: [
+                                Colours.darkBg.withOpacity(0.35),
+                                const Color(0x00000000),
+                              ],
+                            )),
                       ),
                       Align(
                         alignment: Alignment.bottomCenter,
@@ -129,13 +147,14 @@ class ShowDetails extends GetView<ShowDetailsController> {
                           elevation: 0,
                           height: (kToolbarHeight * 2),
                           // + ((MediaQuery.of(context).viewPadding.top) * 2),
-                          color: Theme.of(context)
+                          color: Theme
+                              .of(context)
                               .colorScheme
                               .onPrimary
                               .withOpacity(0.1),
                           padding: const EdgeInsets.all(0),
                           borderRadius:
-                              const BorderRadius.all(Radius.circular(0)),
+                          const BorderRadius.all(Radius.circular(0)),
                           child: Center(
                             child: SingleChildScrollView(
                               physics: const BouncingScrollPhysics(),
@@ -151,11 +170,12 @@ class ShowDetails extends GetView<ShowDetailsController> {
                                     child: FittedBox(
                                       fit: BoxFit.scaleDown,
                                       child: Text(
-                                        show.name,
+                                        episode.name,
                                         // strutStyle: const StrutStyle(
                                         //     height: 1.2, forceStrutHeight: true),
                                         textAlign: TextAlign.center,
-                                        style: Theme.of(context)
+                                        style: Theme
+                                            .of(context)
                                             .textTheme
                                             .headline2
                                             ?.copyWith(
@@ -164,7 +184,8 @@ class ShowDetails extends GetView<ShowDetailsController> {
                                             Shadow(
                                               offset: const Offset(0.5, 0.5),
                                               blurRadius: 2.0,
-                                              color: Theme.of(context)
+                                              color: Theme
+                                                  .of(context)
                                                   .colorScheme
                                                   .background,
                                             ),
@@ -173,74 +194,33 @@ class ShowDetails extends GetView<ShowDetailsController> {
                                       ),
                                     ),
                                   ),
-
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: [
-                                        if (show.genres != null &&
-                                            (show.genres?.isNotEmpty ?? false))
-                                          Text(
-                                            show.genres!
-                                                .map((e) => '$e  ')
-                                                .toString()
-                                                .replaceAll(RegExp(r'[^\w\s]+'), ''),
-                                            textAlign: TextAlign.center,
-                                            maxLines: 1,
-                                            strutStyle: const StrutStyle(
-                                                height: 1.2, forceStrutHeight: true),
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .caption
-                                                ?.copyWith(
-                                              color: Colors.white,
-                                              fontSize: 12,
-                                              shadows: <Shadow>[
-                                                Shadow(
-                                                  offset: const Offset(0.5, 0.5),
-                                                  blurRadius: 1.0,
-                                                  // color: Color.fromARGB(255, 0, 0, 0),
-                                                  color: Theme.of(context)
-                                                      .colorScheme
-                                                      .background,
-                                                ),
-                                              ],
-                                              // color: Colors.white
-                                            ),
-                                          ),
-
-
-                                          controller.obx(
-                                            onLoading:const SizedBox.shrink(),
-                                            onError:(err)=>const SizedBox.shrink(),
-
-                                            (state)=> Text(
-                                              '${((controller.seasonsAndEpisodes?.keys.length??0)<1)?'No':'${controller.seasonsAndEpisodes?.keys.length}'} Season${(controller.seasonsAndEpisodes?.keys.length??0)>1?'s':''}',
-                                              textAlign: TextAlign.center,
-                                              maxLines: 1,
-                                              strutStyle: const StrutStyle(
-                                                  height: 1.2, forceStrutHeight: true),
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .caption
-                                                  ?.copyWith(
-                                                color: Colors.white,
-                                                fontSize: 12,
-                                                shadows: <Shadow>[
-                                                  Shadow(
-                                                    offset: const Offset(0.5, 0.5),
-                                                    blurRadius: 1.0,
-                                                    // color: Color.fromARGB(255, 0, 0, 0),
-                                                    color: Theme.of(context)
-                                                        .colorScheme
-                                                        .background,
-                                                  ),
-                                                ],
-                                                // color: Colors.white
-                                              ),
-                                            ),
-                                          ),
-                                        ],
+                                  Text(
+                                    'S${episode.season}    E${episode.season}',
+                                    textAlign: TextAlign.center,
+                                    maxLines: 1,
+                                    strutStyle: const StrutStyle(
+                                        height: 1.2, forceStrutHeight: true),
+                                    style: Theme
+                                        .of(context)
+                                        .textTheme
+                                        .caption
+                                        ?.copyWith(
+                                      color: Colors.white,
+                                      fontSize: 12,
+                                      shadows: <Shadow>[
+                                        Shadow(
+                                          offset: const Offset(0.5, 0.5),
+                                          blurRadius: 1.0,
+                                          // color: Color.fromARGB(255, 0, 0, 0),
+                                          color: Theme
+                                              .of(context)
+                                              .colorScheme
+                                              .background,
+                                        ),
+                                      ],
+                                      // color: Colors.white
                                     ),
+                                  ),
                                 ],
                               ),
                             ),
@@ -264,7 +244,8 @@ class ShowDetails extends GetView<ShowDetailsController> {
                     const Icon(IconlyBold.calendar,
                         color: Colours.lightShade500),
                     Text(
-                      ' ${show.premiered?.year ?? 2022}',
+                      ' ${DateFormat.yMMMd().format(
+                          episode.airdate ?? DateTime.now())}',
                       style: const TextStyle(color: Colours.lightShade500),
                       strutStyle: const StrutStyle(
                           height: 1.2, forceStrutHeight: true),
@@ -276,7 +257,7 @@ class ShowDetails extends GetView<ShowDetailsController> {
                     const Icon(IconlyBold.video,
                         color: Colours.lightShade500),
                     Text(
-                      ' ${show.runtime ?? 30}m',
+                      ' ${episode.runtime ?? 30}m',
                       style: const TextStyle(color: Colours.lightShade500),
                       strutStyle: const StrutStyle(
                           height: 1.2, forceStrutHeight: true),
@@ -288,20 +269,21 @@ class ShowDetails extends GetView<ShowDetailsController> {
                     const Icon(IconlyBold.time_square,
                         size: 20, color: Colours.lightShade500),
                     Text(
-                      ' ${(show.schedule?.time?.isNotEmpty ?? false) ? show.schedule?.time : 'Soon'}',
+                      ' ${(episode.airtime?.isEmpty ?? true) ? 'Soon' : episode
+                          .airtime}',
                       style: const TextStyle(color: Colours.lightShade500),
                       strutStyle: const StrutStyle(
                           height: 1.2, forceStrutHeight: true),
                     ),
                   ],
                 ),
-                if (show.schedule?.days != null &&
-                    (show.schedule?.days?.isNotEmpty ?? false))
+/*                  if (episode.schedule?.days != null &&
+                    (episode.schedule?.days?.isNotEmpty ?? false))
                   Padding(
                     padding: const EdgeInsets.only(
                         left: kFormSpacing, right: kFormSpacing, top: 4),
                     child: Text(
-                      '${show.network?.name ?? ''} on ${show.schedule!.days!.map((e) => '${e}s  ').toString().replaceAll(RegExp(r'[^\w\s]+'), '')}',
+                      '${episode.network?.name ?? ''} on ${episode.schedule!.days!.map((e) => '${e}s  ').toString().replaceAll(RegExp(r'[^\w\s]+'), '')}',
                       textAlign: TextAlign.center,
                       maxLines: 2,
                       style: Theme.of(context).textTheme.caption?.copyWith(
@@ -318,12 +300,12 @@ class ShowDetails extends GetView<ShowDetailsController> {
                         // color: Colors.white
                       ),
                     ),
-                  ),
+                  ),*/
                 Center(
                   child: Padding(
                     padding: const EdgeInsets.symmetric(vertical: 8.0),
                     child: RatingBar(
-                      initialRating: show.rating!.average! / 2,
+                      initialRating: episode.rating!.average! / 2,
                       maxRating: 10,
                       minRating: 0,
                       glow: true,
@@ -336,7 +318,7 @@ class ShowDetails extends GetView<ShowDetailsController> {
                       allowHalfRating: true,
                       itemCount: 5,
                       itemPadding:
-                          const EdgeInsets.symmetric(horizontal: 1.0),
+                      const EdgeInsets.symmetric(horizontal: 1.0),
                       ratingWidget: RatingWidget(
                         full: const Icon(
                           IconlyBold.star,
@@ -355,43 +337,45 @@ class ShowDetails extends GetView<ShowDetailsController> {
                     ),
                   ),
                 ),
-                if ((show.summary?.isNotEmpty ?? false))
+                if ((episode.summary?.isNotEmpty ?? false))
                   Padding(
                     padding: const EdgeInsets.symmetric(
                         horizontal: kFormSpacing / 2),
                     child: Theme(
                       data: ThemeData(
                           primaryColor: Colors.white,
-                        textTheme:  TextTheme(bodyText2:
-                        Theme.of(context).textTheme.bodyText2?.copyWith(color: Colours.lightShade500))
-                      ),
+                          textTheme: TextTheme(
+                              bodyText2: Theme
+                                  .of(context)
+                                  .textTheme
+                                  .bodyText2
+                                  ?.copyWith(color: Colours.lightShade500))),
                       child: Html(
-                        data: show.summary!,
+                        data: episode.summary!,
                         shrinkWrap: true,
                       ),
                     ),
                   ),
                 controller.obx(
-                  onEmpty: const SizedBox.shrink(),
-                        (state) => (state?.item1?.isNotEmpty??false)?
+                        (state) =>
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             if((controller.state!.item1?.isNotEmpty??false))
-                              Padding(
-                                padding: const EdgeInsets.only(
-                                    left: kFormSpacing,
-                                    right: kFormSpacing,
-                                    bottom: kFormSpacing / 2),
-                                child: Text(
-                                  'Cast',
-                                  style: Theme
-                                      .of(context)
-                                      .textTheme
-                                      .headline6
-                                      ?.copyWith(color: Colors.white),
-                                ),
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                  left: kFormSpacing,
+                                  right: kFormSpacing,
+                                  bottom: kFormSpacing / 2),
+                              child: Text(
+                                'Cast',
+                                style: Theme
+                                    .of(context)
+                                    .textTheme
+                                    .headline6
+                                    ?.copyWith(color: Colors.white),
                               ),
+                            ),
                             Padding(
                               padding: const EdgeInsets.symmetric(
                                   horizontal: kFormSpacing / 2),
@@ -418,74 +402,56 @@ class ShowDetails extends GetView<ShowDetailsController> {
                               ),
                             ),
                           ],
-                        ):const SizedBox.shrink()
+                        )
                 ),
                 controller.obx(
                   onLoading: const SizedBox.shrink(),
-                  (state) => ListView.separated(
-                    physics: const BouncingScrollPhysics(),
-                    separatorBuilder: (BuildContext context, int _) =>
-                        getDividerHorizontal(
-                            height: 1,
-                            color: Colours.darkBg,
-                            bottom: kFormSpacing / 2,
-                            top: kFormSpacing),
-                    shrinkWrap: true,
-                    scrollDirection: Axis.vertical,
-                    reverse: true,
-                    itemCount: controller.seasonsAndEpisodes?.length ?? 0,
-                    itemBuilder: (context, indexSeason) {
-                      return Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(
-                                left: kFormSpacing,
-                                right: kFormSpacing,
-                                bottom: kFormSpacing / 2),
-                            child: Text(
-                              'Season ${controller.seasonsAndEpisodes?.keys.elementAt(indexSeason)}',
-                              style: Theme.of(context).textTheme.headline6?.copyWith(color: Colors.white),
+                        (state) =>
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            if((controller.state!.item2?.isNotEmpty??false))
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                  left: kFormSpacing,
+                                  right: kFormSpacing,
+                                  bottom: kFormSpacing / 2),
+                              child: Text(
+                                'Guest Cast',
+                                style: Theme
+                                    .of(context)
+                                    .textTheme
+                                    .headline6
+                                    ?.copyWith(color: Colors.white),
+                              ),
                             ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: kFormSpacing / 2),
-                            child: SizedBox(
-                              height: 160,
-                              child: (ListView.separated(
-                                physics: const BouncingScrollPhysics(),
-                                shrinkWrap: true,
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: kFormSpacing / 2),
-                                scrollDirection: Axis.horizontal,
-                                itemCount: controller
-                                    .seasonsAndEpisodes!.entries
-                                    .elementAt(indexSeason)
-                                    .value
-                                    .length,
-                                itemBuilder:
-                                    (BuildContext context, int indexEpisode) {
-                                  return SizedBox(
-                                      width: 112,
-                                      child: CardEpisode(
-                                          show: show,
-                                          episode: controller
-                                              .seasonsAndEpisodes!.entries
-                                              .elementAt(indexSeason)
-                                              .value
-                                              .elementAt(indexEpisode)));
-                                },
-                                separatorBuilder:
-                                    (BuildContext context, int index) =>
-                                        const SizedBox(width: 12),
-                              )),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: kFormSpacing / 2),
+                              child: SizedBox(
+                                height: 192,
+                                child: (ListView.separated(
+                                  physics: const BouncingScrollPhysics(),
+                                  shrinkWrap: true,
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: kFormSpacing / 2),
+                                  scrollDirection: Axis.horizontal,
+                                  itemCount: controller.state?.item2?.length??0,
+                                  itemBuilder:
+                                      (BuildContext context, int indexEpisode) {
+                                    return SizedBox(
+                                        width: 112,
+                                        child: CardCast(
+                                            cast: controller.state!.item2!.elementAt(indexEpisode)));
+                                  },
+                                  separatorBuilder:
+                                      (BuildContext context, int index) =>
+                                  const SizedBox(width: 12),
+                                )),
+                              ),
                             ),
-                          ),
-                        ],
-                      );
-                    },
-                  ),
+                          ],
+                        )
                 ),
               ],
             ),

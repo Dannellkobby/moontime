@@ -37,6 +37,7 @@ class Home extends GetView<HomeController> {
                         items: state?.item1?.toList().map((episode) {
                           return CardEpisode(
                             episode: episode,
+                            tapToDetails: true,
                           );
                         }).toList(),
                         options: CarouselOptions(
