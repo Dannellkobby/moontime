@@ -46,6 +46,7 @@ dependencies:
 
 dependency_overrides:
   flutter_svg: ^1.1.6
+  collection: ^1.17.0
 
 dev_dependencies:
   flutter_test:

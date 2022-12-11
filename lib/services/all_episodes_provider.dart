@@ -7,11 +7,12 @@ class AllEpisodesProvider extends GetConnect{
 
   @override
   void onInit() {
+    httpClient.baseUrl = kTVMazeBaseUrl;
     httpClient.defaultDecoder = Episode.listFromJson;
     httpClient.maxAuthRetries = 3;
     httpClient.timeout = const Duration(seconds: 60);
   }
 
-  Future<Response<List<Episode>>> getEpisodes() => get<List<Episode>>('$kTVMazeBaseUrl/schedule');
+  Future<Response<List<Episode>>> getEpisodes() => get<List<Episode>>('/schedule');
 
 }

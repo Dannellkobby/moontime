@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:get/get.dart';
-import 'package:moontime/models/episode.dart';
 import 'package:moontime/models/show.dart';
 import 'package:moontime/utilities/constants.dart';
 

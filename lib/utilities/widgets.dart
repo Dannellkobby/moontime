@@ -56,6 +56,36 @@ void toastError({
       duration: duration ?? const Duration(seconds: 8));
 }
 
+getDividerHorizontal({BuildContext? context,
+  double? height,
+  double? width,
+  Color? color,
+  double? top,
+  double? bottom,
+  EdgeInsets? margin}) {
+  context ??= Get.context!;
+  return Container(
+    width: width ?? context.width,
+    margin: EdgeInsets.only(top: top ?? kEdgePadding / 2,
+      bottom: bottom ?? kEdgePadding / 2,
+      left: kEdgePadding / 2,
+      right: kEdgePadding / 2,),
+    height: height ?? 2,
+    decoration: BoxDecoration(
+        gradient: LinearGradient(colors: [
+          Colours.transparentB,
+          color??((Theme
+              .of(Get.context!)
+              .brightness == Brightness.dark)
+              ? Colours.darkShade600
+              : Colours.lightShade300),
+          Colours.transparentB,
+        ], begin: Alignment.centerLeft, end: Alignment.centerRight)),
+
+    // color: widget.trailingDividerColor ??
+    //     Colours.darkShade200,
+  );
+}
 
 getDividerVertical({BuildContext? context,
   double? height,
@@ -66,28 +96,22 @@ getDividerVertical({BuildContext? context,
   EdgeInsets? margin}) {
   context ??= Get.context!;
   return Container(
-    width: width ?? context.width,
+    height: height ?? context.height,
     margin: EdgeInsets.only(top: top ?? 0,
       bottom: bottom ?? 0,
       left: kEdgePadding / 2,
       right: kEdgePadding / 2,),
     // margin: margin ?? const EdgeInsets.symmetric(horizontal: kEdgePadding / 2),
-    height: height ?? 2,
+    width: width ?? 1,
     decoration: BoxDecoration(
         gradient: LinearGradient(colors: [
-          Theme
-              .of(context)
-              .colorScheme
-              .background,
+          Colours.transparentW,
           color??((Theme
               .of(Get.context!)
               .brightness == Brightness.dark)
               ? Colours.darkShade600
               : Colours.lightShade300),
-          Theme
-              .of(context)
-              .colorScheme
-              .background,
+          Colours.transparentW,
         ], begin: Alignment.topCenter, end: Alignment.bottomCenter)),
 
   );

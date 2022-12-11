@@ -9,21 +9,23 @@ import 'package:moontime/views/screens/home.dart';
 
 class CardEpisode extends StatelessWidget {
   final Episode episode;
+  final double? radius;
   const CardEpisode({
-    Key? key, required this.episode,
+    Key? key, required this.episode,this.radius,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () {
-        if(episode.show!=null) {
-          Get.toNamed(Strings.routeShowDetails,
-            arguments: {Strings.keyShow: episode.show});
-        }
-      },
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(16),
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(radius??16),
+      child: InkWell(
+        borderRadius: BorderRadius.circular(radius??16),
+        onTap: () {
+          if(episode.show!=null) {
+            Get.toNamed(Strings.routeShowDetails,
+              arguments: {Strings.keyShow: episode.show});
+          }
+        },
         child: Stack(
           alignment: Alignment.bottomCenter,
           children: [
@@ -40,19 +42,16 @@ class CardEpisode extends StatelessWidget {
                 height: double.maxFinite,
                 width: double.maxFinite,
                 imageUrl:
-                '${episode.show?.image?.original}'),
+                '${episode.image?.original??episode.show?.image?.original}'),
             BlurryContainer(
               blur: 16,
               elevation: 0,
-
-              color: Colors.white
-                  .withOpacity(0.2),
+              color: Theme.of(context).colorScheme.onPrimary.withOpacity(0.1),
               padding: const EdgeInsets.all(0),
               height: 54,
               borderRadius: const BorderRadius.all(
                   Radius.circular(0)),
-              child: Builder(builder: (context) {
-                return Padding(
+              child: Padding(
                   padding: const EdgeInsets.symmetric(
                       horizontal: 12.0),
                   child: Column(
@@ -100,8 +99,7 @@ class CardEpisode extends StatelessWidget {
                       ),
                     ],
                   ),
-                );
-              }),
+                )
             )
           ],
         ),

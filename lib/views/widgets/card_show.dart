@@ -30,7 +30,7 @@ class CardShow extends StatelessWidget {
         child: Column(
           children: [
             CachedNetworkImage(
-                fit: BoxFit.fill,
+                fit: BoxFit.cover,
                 errorWidget: (c, err, obj) =>
                     const MoontimePlaceholder(logoColor: Colours.redError),
                 placeholder: (c, err) => const MoontimePlaceholder(),
@@ -44,8 +44,7 @@ class CardShow extends StatelessWidget {
               color: Theme.of(context).colorScheme.onPrimary.withOpacity(0.1),
               padding: const EdgeInsets.all(0),
               borderRadius: const BorderRadius.all(Radius.circular(0)),
-              child: Builder(builder: (context) {
-                return Padding(
+              child: Padding(
                   padding: const EdgeInsets.symmetric(
                       vertical: 12, horizontal: 18.0),
                   child: Column(
@@ -138,8 +137,7 @@ class CardShow extends StatelessWidget {
                         ),
                     ],
                   ),
-                );
-              }),
+                )
             )
           ],
         ),

@@ -4,11 +4,11 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:moontime/controllers/home_controller.dart';
 import 'package:moontime/controllers/navigation_controller.dart';
+import 'package:moontime/controllers/show_details_controller.dart';
 import 'package:moontime/controllers/theme_controller.dart';
 import 'package:moontime/firebase_options.dart';
 
 class AppInitialization extends GetxService {
-
   Future init() async {
     await GetStorage.init();
     await Firebase.initializeApp(
@@ -16,8 +16,8 @@ class AppInitialization extends GetxService {
     );
     Get.put<NavigationController>(NavigationController());
     Get.put<ThemeController>(ThemeController());
-    Get.lazyPut<HomeController>(
-            () => HomeController(episodesProvider: Get.find(), seriesProvider: Get.find()));
+    Get.lazyPut<HomeController>(() => HomeController(
+        episodesProvider: Get.find(), seriesProvider: Get.find()));
 
     Future.delayed(const Duration(seconds: 2)).then((value) {
       //TODO Add splashscreen
@@ -26,6 +26,4 @@ class AppInitialization extends GetxService {
     if (kDebugMode) print('APP INITIALIZATION DONE');
     return this;
   }
-
-
 }
