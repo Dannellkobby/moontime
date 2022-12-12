@@ -21,9 +21,6 @@ class ThemeController extends GetxController {
     _themeMode = getThemeModeFromString(value);
     Get.changeThemeMode(_themeMode);
     await store.write('theme', value.toString()).then((value) {
-      if (kDebugMode) {
-        print('setThemeMode: $_themeMode');
-      }
       update();
     });
   }
@@ -33,20 +30,20 @@ class ThemeController extends GetxController {
   }
 
   ThemeMode getThemeModeFromString(ThemeEnums themeString) {
-    ThemeMode _setThemeMode = ThemeMode.system;
+    ThemeMode setThemeMode = ThemeMode.system;
     if (themeString == ThemeEnums.light) {
-      _setThemeMode = ThemeMode.light;
+      setThemeMode = ThemeMode.light;
     }
     if (themeString == ThemeEnums.dark) {
-      _setThemeMode = ThemeMode.dark;
+      setThemeMode = ThemeMode.dark;
     }
-    return _setThemeMode;
+    return setThemeMode;
   }
 
 
 
   initThemeModeFromStorage() async {
-    final themePref = await store.read('theme') ?? ThemeEnums.system;
+    final themePref = await store.read('theme') ?? ThemeEnums.dark;
     setThemeMode(themePref == ThemeEnums.light.toString()
         ? ThemeEnums.light
         : themePref == ThemeEnums.dark.toString()

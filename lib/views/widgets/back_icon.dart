@@ -3,14 +3,15 @@ import 'package:iconly/iconly.dart';
 
 class BackIcon extends StatelessWidget {
   final Color? color;
+  final VoidCallback? onPressed;
 
-  const BackIcon({Key? key, this.color}) : super(key: key);
+  const BackIcon({Key? key, this.onPressed,this.color}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
         customBorder: const CircleBorder(),
-        onTap: () => Navigator.maybePop(context),
+        onTap: onPressed??() => Navigator.maybePop(context),
         child: Icon(
           IconlyBroken.arrow_left,
           color: color ?? Colors.white,

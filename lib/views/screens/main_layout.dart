@@ -15,6 +15,8 @@ import 'package:moontime/views/screens/home.dart';
 import 'package:moontime/views/widgets/bottom_nav_bar_menu.dart';
 import 'package:moontime/views/widgets/scaffold_gradient.dart';
 
+import 'settings.dart';
+
 class MainLayout extends GetView<NavigationController> {
   const MainLayout({Key? key}) : super(key: key);
 
@@ -162,8 +164,6 @@ class MainLayout extends GetView<NavigationController> {
                             ),
                           ),
                           onPress: () {
-                            ThemeController.get.switchTheme();
-                            return;
                             controller.tabController
                                 .animateTo(NavbarScreens.settings.index);
                           },
@@ -184,10 +184,10 @@ class MainLayout extends GetView<NavigationController> {
                           : const BouncingScrollPhysics(),
                       controller: controller.tabController,
                       //index: NavigationController.to.currentIndex.value,
-                      children: [
-                        const Home(),
-                        const Favorites(),
-                        Text(NavbarScreens.settings.name),
+                      children: const [
+                        Home(),
+                        Favorites(),
+                        Settings(),
                       ],
                     ),
                   ),
