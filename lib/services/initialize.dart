@@ -1,3 +1,6 @@
+/// Copyright (c) 2022 Dannell Kobby. All rights reserved.
+/// Use of this source code is governed by MIT license that can be found in the LICENSE file.
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
@@ -21,8 +24,8 @@ class AppInitialization extends GetxService {
     Get.put<AuthController>(AuthController());
     Get.put<FavoritesController>(FavoritesController());
     Get.lazyPut<ShowDetailsController>(() => ShowDetailsController());
-    Get.lazyPut<HomeController>(() => HomeController(
-        airingEpisodes: Get.find(), seriesProvider: Get.find()));
+    Get.lazyPut<HomeController>(() =>
+        HomeController(airingEpisodes: Get.find(), seriesProvider: Get.find()));
 
     Future.delayed(const Duration(seconds: 2)).then((value) {
       //TODO Add splashscreen

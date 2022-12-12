@@ -1,4 +1,6 @@
-import 'package:moontime/models/network.dart';
+/// Copyright (c) 2022 Dannell Kobby. All rights reserved.
+/// Use of this source code is governed by MIT license that can be found in the LICENSE file.
+
 import 'image.dart';
 
 class Character {
@@ -6,7 +8,6 @@ class Character {
   late String url, name;
   String? gender;
   Image? image;
-
 
   static List<Character> listFromJson(list) =>
       List<Character>.from(list.map((i) => Character.fromJson(i)));

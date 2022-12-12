@@ -1,20 +1,12 @@
-import 'package:blurrycontainer/blurrycontainer.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:iconly/iconly.dart';
 import 'package:moontime/controllers/favorites_controller.dart';
 import 'package:moontime/controllers/navigation_controller.dart';
-import 'package:moontime/controllers/search_controller.dart';
 import 'package:moontime/controllers/theme_controller.dart';
-import 'package:moontime/utilities/colours.dart';
 import 'package:moontime/utilities/constants.dart';
-import 'package:moontime/utilities/strings.dart';
 import 'package:moontime/utilities/widgets.dart';
 import 'package:moontime/views/widgets/back_icon.dart';
-import 'package:moontime/views/widgets/card_show.dart';
 import 'package:moontime/views/widgets/scaffold_gradient.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
@@ -112,8 +104,6 @@ class Settings extends GetView<FavoritesController> {
                                           .onPrimary,
                                       allowDrawingOutsideViewBox: true,
                                       clipBehavior: Clip.none,
-                                      // height: 16,
-                                      // width: 16,
                                     ),
                                   ),
                                   Text('oontime',

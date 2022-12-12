@@ -1,3 +1,6 @@
+/// Copyright (c) 2022 Dannell Kobby. All rights reserved.
+/// Use of this source code is governed by MIT license that can be found in the LICENSE file.
+
 import 'package:flutter/material.dart' hide Image;
 import 'package:moontime/models/network.dart';
 import 'package:moontime/models/rating.dart';

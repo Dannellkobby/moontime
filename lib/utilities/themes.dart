@@ -1,3 +1,6 @@
+/// Copyright (c) 2022 Dannell Kobby. All rights reserved.
+/// Use of this source code is governed by MIT license that can be found in the LICENSE file.
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -12,13 +15,11 @@ class Themes {
   static final TextTheme lightTextTheme = TextTheme(
     headline1: TextStyle(
         fontSize: 36.0,
-        // height: 1.5,
         color: Colours.black,
         fontFamily: isidoraSans,
         fontWeight: FontWeight.w700),
     headline2: TextStyle(
         fontSize: 32.0,
-        // height: 1.5,
         color: Colours.black,
         fontFamily: isidoraSans,
         fontWeight: FontWeight.w700),
@@ -93,11 +94,6 @@ class Themes {
     textTheme: lightTextTheme,
     primaryTextTheme: lightTextTheme,
     scaffoldBackgroundColor: Colours.lightBg,
-    /*textSelectionTheme: const TextSelectionThemeData(
-      cursorColor: primary,
-      selectionColor: primary,
-      selectionHandleColor: primary,
-    ),*/
     backgroundColor: Colours.lightBg,
     switchTheme: SwitchThemeData(
       trackColor: MaterialStateProperty.all(Colours.lightShade400),
@@ -105,8 +101,8 @@ class Themes {
     ),
     cupertinoOverrideTheme: const CupertinoThemeData(
         textTheme: CupertinoTextThemeData(
-          dateTimePickerTextStyle: TextStyle(fontSize: 14),
-        )),
+      dateTimePickerTextStyle: TextStyle(fontSize: 14),
+    )),
     iconTheme: const IconThemeData(color: Colours.lightShade800),
     appBarTheme: const AppBarTheme(
       elevation: 0,
@@ -120,13 +116,6 @@ class Themes {
       brightness: Brightness.light,
       primary: primary,
       onPrimary: Colours.black,
-     /* primaryContainer: Colours.greenShade700,
-      secondary: Colours.yellow,
-      secondaryContainer: Colours.yellowShade500,
-      onSecondary: Colours.yellowShade900,
-      tertiary: Colours.red,
-      tertiaryContainer: Colours.redShade500,
-      onTertiary: Colours.redShade900,*/
       surface: Colours.lightShade100,
       onSurface: Colours.lightShade600,
       surfaceTint: Colours.lightShade300,
@@ -139,10 +128,8 @@ class Themes {
         style: ButtonStyle(
             overlayColor: MaterialStateProperty.all(Colors.white10),
             padding: MaterialStateProperty.all(const EdgeInsets.all(12)),
-            shape: MaterialStateProperty.all(
-              // ContinuousRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(100)))
-                const RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(100)))))),
+            shape: MaterialStateProperty.all(const RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(100)))))),
     inputDecorationTheme: const InputDecorationTheme(
       filled: true,
       alignLabelWithHint: true,
@@ -181,12 +168,7 @@ class Themes {
     cupertinoOverrideTheme: const CupertinoThemeData(
         textTheme: CupertinoTextThemeData(
             dateTimePickerTextStyle:
-            TextStyle(color: Colours.lightShade100, fontSize: 14))),
-    /*textSelectionTheme: const TextSelectionThemeData(
-      cursorColor: primary,
-      selectionColor: primary,
-      selectionHandleColor: primary,
-    ),*/
+                TextStyle(color: Colours.lightShade100, fontSize: 14))),
     primaryTextTheme: darkTextTheme,
     iconTheme: const IconThemeData(color: Colours.darkShade400),
     scaffoldBackgroundColor: Colours.darkBg,
@@ -206,13 +188,8 @@ class Themes {
     colorScheme: const ColorScheme.dark(
       brightness: Brightness.dark,
       primary: primary,
-      // primaryContainer: Colours.greenShade700,
       onPrimary: Colours.white,
-      // secondary: Colours.yellow,
-      // secondaryContainer: Colours.yellowShade500,
-      // onSecondary: Colours.yellowShade900,
       surface: Colours.darkShade700,
-      // unselectedWidgetColor: Colours.darkShade400,
       surfaceTint: Colours.darkShade600,
       onSurface: Colours.darkShade400,
       tertiary: Colours.moonOrangeDeep,
@@ -227,10 +204,8 @@ class Themes {
         style: ButtonStyle(
             overlayColor: MaterialStateProperty.all(Colors.white10),
             padding: MaterialStateProperty.all(const EdgeInsets.all(12)),
-            shape: MaterialStateProperty.all(
-              // ContinuousRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(100)))
-                const RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(100)))))),
+            shape: MaterialStateProperty.all(const RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(100)))))),
     inputDecorationTheme: const InputDecorationTheme(
       filled: true,
       alignLabelWithHint: true,
@@ -268,7 +243,7 @@ class Themes {
     required BuildContext context,
     EdgeInsets? contentPadding,
     Widget? suffix,
-    double borderRadius=32,
+    double borderRadius = 32,
     Widget? suffixIcon,
     Widget? prefix,
     Widget? prefixIcon,
@@ -286,7 +261,7 @@ class Themes {
           contentPadding: contentPadding ??
               const EdgeInsets.symmetric(horizontal: 18, vertical: 18),
           floatingLabelAlignment:
-          floatingLabelAlignment ?? FloatingLabelAlignment.center,
+              floatingLabelAlignment ?? FloatingLabelAlignment.center,
           labelText: labelText,
           hintText: hintText,
           suffix: suffix,
@@ -306,13 +281,16 @@ class Themes {
                   color: Theme.of(context).colorScheme.onSurface,
                   fontWeight: FontWeight.w500,
                   letterSpacing: 0),
-          focusedBorder:  OutlineInputBorder(
+          focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.all(Radius.circular(borderRadius)),
-              borderSide: const BorderSide(color: Colors.transparent, width: 0)),
-          enabledBorder:  OutlineInputBorder(
+              borderSide:
+                  const BorderSide(color: Colors.transparent, width: 0)),
+          enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.all(Radius.circular(borderRadius)),
-              borderSide: const BorderSide(color: Colors.transparent, width: 0)),
-          border:  OutlineInputBorder(
+              borderSide:
+                  const BorderSide(color: Colors.transparent, width: 0)),
+          border: OutlineInputBorder(
               borderRadius: BorderRadius.all(Radius.circular(borderRadius)),
-              borderSide: const BorderSide(color: Colors.transparent, width: 0)));
+              borderSide:
+                  const BorderSide(color: Colors.transparent, width: 0)));
 }

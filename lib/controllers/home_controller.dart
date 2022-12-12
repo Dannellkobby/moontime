@@ -1,3 +1,6 @@
+/// Copyright (c) 2022 Dannell Kobby. All rights reserved.
+/// Use of this source code is governed by MIT license that can be found in the LICENSE file.
+
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:moontime/models/episode.dart';
@@ -24,27 +27,6 @@ class HomeController extends GetxController
   @override
   void onReady() {
     super.onReady();
-    loadMoreShows();
-  }
-
-  loadMoreShows() async {
-    if(fetching.isTrue) return;
-    fetching.value = true;
-    print('LOAD MORE CALLED ${currentPage.value}');
-    List? newList = await seriesProvider.loadMoreShows(currentPage.value);
-    if (newList?.isEmpty ?? true) {
-      print('LIST ENDED');
-    } else {
-      currentPage.value--;
-      shows?.addAll(newList as List<Show>);
-    }
-    fetching.value = false;
-  }
-
-  @override
-  void onInit() {
-    super.onInit();
-
     airingEpisodes.getEpisodes().then(
       (response) {
         if (response.hasError) {
@@ -56,6 +38,19 @@ class HomeController extends GetxController
         }
       },
     );
+    loadMoreShows();
+  }
+
+  loadMoreShows() async {
+    if (fetching.isTrue) return;
+    fetching.value = true;
+    List? newList = await seriesProvider.loadMoreShows(currentPage.value);
+    if (newList?.isEmpty ?? true) {
+    } else {
+      currentPage.value--;
+      shows?.addAll(newList as List<Show>);
+    }
+    fetching.value = false;
   }
 
   onError(err) {

@@ -1,19 +1,24 @@
+/// Copyright (c) 2022 Dannell Kobby. All rights reserved.
+/// Use of this source code is governed by MIT license that can be found in the LICENSE file.
+
 import 'dart:async';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter/services.dart';
-import 'package:moontime/models/episode.dart';
-import 'package:moontime/services/airing_episodes_provider.dart';
 
-enum NavbarScreens { home, favourites, settings, }
+enum NavbarScreens {
+  home,
+  favourites,
+  settings,
+}
 
 class NavigationController extends GetxController
     with GetSingleTickerProviderStateMixin {
   static NavigationController get = Get.find();
-  RxBool disableSwipe = true.obs;
-  RxBool hideNavBar = false.obs;
+  final RxBool disableSwipe = true.obs;
+  final RxBool hideNavBar = false.obs;
   var exitWindowOpen = false;
   var currentIndex = NavbarScreens.home.index.obs;
   Timer exitTimer = Timer(const Duration(milliseconds: 0), () {});
@@ -29,11 +34,7 @@ class NavigationController extends GetxController
     tabController.addListener(() {
       currentIndex.value = tabController.index;
     });
-
-
-
   }
-
 
   @override
   void onClose() {

@@ -1,3 +1,6 @@
+/// Copyright (c) 2022 Dannell Kobby. All rights reserved.
+/// Use of this source code is governed by MIT license that can be found in the LICENSE file.
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -45,7 +48,6 @@ class BottomNavBarMenu extends StatelessWidget {
                 ? null
                 : () {
                     onPress!.call();
-                    // NavigationController.to.tabController?.animateTo(index);
                   },
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -73,7 +75,6 @@ class BottomNavBarMenu extends StatelessWidget {
                         child: Text(
                           title!,
                           style: Theme.of(context).textTheme.caption?.copyWith(
-                              // color: selected ? Colors.grey.shade800 : Colors.grey.shade800,
                               fontWeight:
                                   selected ? FontWeight.w600 : FontWeight.w500),
                         )),

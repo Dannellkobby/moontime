@@ -1,3 +1,5 @@
+/// Copyright (c) 2022 Dannell Kobby. All rights reserved.
+/// Use of this source code is governed by MIT license that can be found in the LICENSE file.
 
 import 'package:moontime/models/image.dart';
 import 'package:moontime/models/rating.dart';
@@ -14,61 +16,29 @@ class Episode {
   Image? image;
   Rating? rating;
 
-  static List<Episode> listFromJson(list) => List<Episode>.from(list.map((i) => Episode.fromJson(i)));
-  /*static List<Episode> listFromJson(list) {
-    print('listFromJson.length ${(list as List).length}');
-    var decoded;
-    // try{
-    //   decoded     = json.decode(list as String);
-    //
-    // }catch(e){
-    //   print('listFromJson.error $e');
-    //   try{
-    //     decoded     = (list);
-    //
-    //   }catch(e){
-    //     print('listFromJson.error $e');
-    //   }
-    //
-    // }
-    decoded=List<Episode>.from(list.map((i) {
-      print('listFromJson map  $i');
-      var item;
-      try{
-        item= Episode.fromJson(i);
-
-      }catch(e){
-        print('listFromJson item error $e');
-
-      }
-      return item;
-
-    }));
-
-
-    print('listFromJson decoded $decoded');
-    return decoded;
-  }*/
+  static List<Episode> listFromJson(list) =>
+      List<Episode>.from(list.map((i) => Episode.fromJson(i)));
 
   Episode.fromJson(Map<String, dynamic> json)
       : id = json['id'],
-        season = json['season'],
+        season = json['season'] ?? 1,
         number = json['number'] ?? 1,
         runtime = json['runtime'],
         url = json['url'],
         name = json['name'],
         type = json['type'],
-        rating =json['rating'] != null ? Rating.fromJson(json['rating']) : null,
-      summary = json['summary'],
+        rating =
+            json['rating'] != null ? Rating.fromJson(json['rating']) : null,
+        summary = json['summary'],
         language = json['language'],
         status = json['status'],
         airdate = DateTime.tryParse('${json['airdate']}'),
         airtime = json['airtime'],
         show = json['show'] != null ? Show.fromJson(json['show']) : null,
-  image = json['image'] != null ? Image.fromJson(json['image']) : null;
+        image = json['image'] != null ? Image.fromJson(json['image']) : null;
 
-  Map<String, dynamic> toJson() =>
-      {'id': id,
+  Map<String, dynamic> toJson() => {
+        'id': id,
         'season': season,
         'number': number,
         'url': url,
@@ -83,8 +53,5 @@ class Episode {
         'airtime': airtime?.toString(),
         'show': show?.toJson(),
         'image': image?.toJson()
-      }
-        ..removeWhere((key, value) => value == null);
+      }..removeWhere((key, value) => value == null);
 }
-
-

@@ -1,3 +1,6 @@
+/// Copyright (c) 2022 Dannell Kobby. All rights reserved.
+/// Use of this source code is governed by MIT license that can be found in the LICENSE file.
+
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:moontime/controllers/episode_details_controller.dart';
@@ -38,7 +41,8 @@ class MoonRouter {
         name: Strings.routeShowDetails,
         preventDuplicates: true,
         page: () {
-          Get.find<ShowDetailsController>().showID.value = '${(Get.arguments[Strings.keyShow] as Show).id}';
+          Get.find<ShowDetailsController>().showID.value =
+              '${(Get.arguments[Strings.keyShow] as Show).id}';
           return ShowDetails(show: Get.arguments[Strings.keyShow]);
         },
         binding: BindingsBuilder(() {
@@ -48,10 +52,13 @@ class MoonRouter {
         name: Strings.routeEpisodeDetails,
         preventDuplicates: true,
         page: () {
-          Get.find<EpisodeDetailsController>().episodeID.value = '${(Get.arguments[Strings.keyEpisode] as Episode).id}';
-         return EpisodeDetails(episode: Get.arguments[Strings.keyEpisode]);},
+          Get.find<EpisodeDetailsController>().episodeID.value =
+              '${(Get.arguments[Strings.keyEpisode] as Episode).id}';
+          return EpisodeDetails(episode: Get.arguments[Strings.keyEpisode]);
+        },
         binding: BindingsBuilder(() {
-          Get.lazyPut<EpisodeDetailsController>(() => EpisodeDetailsController());
+          Get.lazyPut<EpisodeDetailsController>(
+              () => EpisodeDetailsController());
         })),
     GetPage(
         name: Strings.routePersonDetails,

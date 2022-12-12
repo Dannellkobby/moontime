@@ -1,3 +1,6 @@
+/// Copyright (c) 2022 Dannell Kobby. All rights reserved.
+/// Use of this source code is governed by MIT license that can be found in the LICENSE file.
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -7,7 +10,7 @@ import 'package:moontime/models/person.dart';
 import 'package:moontime/models/show.dart';
 import 'package:moontime/utilities/strings.dart';
 
-class FavoritesController extends GetxController{
+class FavoritesController extends GetxController {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   RxList<Show> favoriteShows = RxList<Show>([]);
@@ -15,35 +18,40 @@ class FavoritesController extends GetxController{
   RxList<Show> favoritePeople = RxList<Show>([]);
 
   @override
-  void onInit() {
-    ever(Get.find<AuthController>().firebaseUser, (User? user) => user != null ? handleUserChanged(user) : () {});
-
-     super.onInit();
+  void onReady() {
+    ever(Get.find<AuthController>().firebaseUser,
+        (User? user) => user != null ? onUserChanged(user) : () {});
+    super.onReady();
   }
 
-  handleUserChanged(User? user) {
+  onUserChanged(User? user) {
     if (user == null) {
       favoriteShows.clear();
       favoritePeople.clear();
       favoriteEpisodes.clear();
     } else {
       favoriteShows.bindStream(_firestore
-          .collection('${Strings.colUsers}/${user.uid}/${Strings.colFavoriteShows}')
+          .collection(
+              '${Strings.colUsers}/${user.uid}/${Strings.colFavoriteShows}')
           .orderBy('name', descending: false)
           .snapshots()
-          .map((snaps) => snaps.docs.map((snap) => Show.fromJson(snap.data())).toList()));
+          .map((snaps) =>
+              snaps.docs.map((snap) => Show.fromJson(snap.data())).toList()));
       favoriteEpisodes.bindStream(_firestore
-          .collection('${Strings.colUsers}/${user.uid}/${Strings.colFavoriteEpisodes}')
+          .collection(
+              '${Strings.colUsers}/${user.uid}/${Strings.colFavoriteEpisodes}')
           .orderBy('name', descending: false)
           .snapshots()
-          .map((snaps) => snaps.docs.map((snap) => Show.fromJson(snap.data())).toList()));
+          .map((snaps) =>
+              snaps.docs.map((snap) => Show.fromJson(snap.data())).toList()));
       favoritePeople.bindStream(_firestore
-          .collection('${Strings.colUsers}/${user.uid}/${Strings.colFavoritePeople}')
+          .collection(
+              '${Strings.colUsers}/${user.uid}/${Strings.colFavoritePeople}')
           .orderBy('name', descending: false)
           .snapshots()
-          .map((snaps) => snaps.docs.map((snap) => Show.fromJson(snap.data())).toList()));
-
-     }
+          .map((snaps) =>
+              snaps.docs.map((snap) => Show.fromJson(snap.data())).toList()));
+    }
   }
 
   @override
@@ -58,37 +66,44 @@ class FavoritesController extends GetxController{
     if (favoriteShows.any((e) => e.id == show.id)) {
       //remove
       return _firestore
-          .doc('${Strings.colUsers}/${Get.find<AuthController>().firebaseUser.value?.uid}/${Strings.colFavoriteShows}/${show.id}')
+          .doc(
+              '${Strings.colUsers}/${Get.find<AuthController>().firebaseUser.value?.uid}/${Strings.colFavoriteShows}/${show.id}')
           .delete();
     } else {
       return _firestore
-          .doc('${Strings.colUsers}/${Get.find<AuthController>().firebaseUser.value?.uid}/${Strings.colFavoriteShows}/${show.id}')
+          .doc(
+              '${Strings.colUsers}/${Get.find<AuthController>().firebaseUser.value?.uid}/${Strings.colFavoriteShows}/${show.id}')
           .set(show.toJson());
     }
   }
+
   Future toggleFavoriteEpisode(Episode episode) async {
     if (favoriteShows.any((e) => e.id == episode.id)) {
       //remove
       return _firestore
-          .doc('${Strings.colUsers}/${Get.find<AuthController>().firebaseUser.value?.uid}/${Strings.colFavoriteEpisodes}/${episode.id}')
+          .doc(
+              '${Strings.colUsers}/${Get.find<AuthController>().firebaseUser.value?.uid}/${Strings.colFavoriteEpisodes}/${episode.id}')
           .delete();
     } else {
       return _firestore
-          .doc('${Strings.colUsers}/${Get.find<AuthController>().firebaseUser.value?.uid}/${Strings.colFavoriteEpisodes}/${episode.id}')
+          .doc(
+              '${Strings.colUsers}/${Get.find<AuthController>().firebaseUser.value?.uid}/${Strings.colFavoriteEpisodes}/${episode.id}')
           .set(episode.toJson());
     }
   }
+
   Future toggleFavoritePeople(Person person) async {
     if (favoriteShows.any((e) => e.id == person.id)) {
       //remove
       return _firestore
-          .doc('${Strings.colUsers}/${Get.find<AuthController>().firebaseUser.value?.uid}/${Strings.colFavoritePeople}/${person.id}')
+          .doc(
+              '${Strings.colUsers}/${Get.find<AuthController>().firebaseUser.value?.uid}/${Strings.colFavoritePeople}/${person.id}')
           .delete();
     } else {
       return _firestore
-          .doc('${Strings.colUsers}/${Get.find<AuthController>().firebaseUser.value?.uid}/${Strings.colFavoritePeople}/${person.id}')
+          .doc(
+              '${Strings.colUsers}/${Get.find<AuthController>().firebaseUser.value?.uid}/${Strings.colFavoritePeople}/${person.id}')
           .set(person.toJson());
     }
   }
-
 }

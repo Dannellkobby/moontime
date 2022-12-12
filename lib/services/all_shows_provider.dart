@@ -1,3 +1,5 @@
+/// Copyright (c) 2022 Dannell Kobby. All rights reserved.
+/// Use of this source code is governed by MIT license that can be found in the LICENSE file.
 
 import 'package:get/get.dart';
 import 'package:moontime/models/show.dart';

@@ -1,6 +1,11 @@
+/// Copyright (c) 2022 Dannell Kobby. All rights reserved.
+/// Use of this source code is governed by MIT license that can be found in the LICENSE file.
+
 import 'package:flutter/material.dart';
+
 class Colours {
   Colours._();
+
   static const Color redError = Color.fromRGBO(236, 10, 58, 1);
   static const Color transparentB = Color(0x00000000);
   static const Color transparentW = Color(0xFFFFFF);
@@ -30,10 +35,8 @@ class Colours {
   static const Color lightShade800 = Color(0xffaaaaaa);
   static const Color lightShade900 = Color(0xffa0a0a0);
 
-
   static const Color moonBlueLight = Color(0xff6babdb);
   static const Color moonBlueDeep = Color(0xff1079c9);
   static const Color moonOrangeLight = Color(0xfff08f31);
   static const Color moonOrangeDeep = Color(0xffc6431b);
-
 }

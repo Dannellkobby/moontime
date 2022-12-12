@@ -1,3 +1,6 @@
+/// Copyright (c) 2022 Dannell Kobby. All rights reserved.
+/// Use of this source code is governed by MIT license that can be found in the LICENSE file.
+
 const double kBottomNavBarHeight = 64.0;
 const double kBottomNavBarMargin = 16.0;
 const double kBottomNavBarBorderRadius = 100.0;
@@ -20,11 +23,3 @@ const String kFontIsidoraSans = 'IsidoraSans';
 const String kNa = 'n/a';
 const String kTVMazeBaseUrl = 'https://api.tvmaze.com';
 const String kTVMazeAuthority = 'api.tvmaze.com';
-enum SearchStatus {
-  idle,
-  connecting,
-  searching,
-  error,
-  available,
-  unavailable
-}

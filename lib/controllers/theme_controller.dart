@@ -1,3 +1,6 @@
+/// Copyright (c) 2022 Dannell Kobby. All rights reserved.
+/// Use of this source code is governed by MIT license that can be found in the LICENSE file.
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -40,8 +43,6 @@ class ThemeController extends GetxController {
     return setThemeMode;
   }
 
-
-
   initThemeModeFromStorage() async {
     final themePref = await store.read('theme') ?? ThemeEnums.dark;
     setThemeMode(themePref == ThemeEnums.light.toString()
@@ -57,11 +58,11 @@ class ThemeController extends GetxController {
   // checks whether darkmode is set via system or previously by user
   RxBool get isDarkMode {
     if (currentTheme == ThemeEnums.system) {
-      if (WidgetsBinding.instance.window.platformBrightness == Brightness.dark) {
+      if (WidgetsBinding.instance.window.platformBrightness ==
+          Brightness.dark) {
         return RxBool(true);
       }
-    }
-    else if (currentTheme == ThemeEnums.dark) {
+    } else if (currentTheme == ThemeEnums.dark) {
       return RxBool(true);
     }
     return RxBool(false);

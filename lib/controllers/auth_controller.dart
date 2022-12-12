@@ -1,8 +1,10 @@
+/// Copyright (c) 2022 Dannell Kobby. All rights reserved.
+/// Use of this source code is governed by MIT license that can be found in the LICENSE file.
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 
 class AuthController extends GetxController {
-  static AuthController to = Get.find();
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final Rx<User?> firebaseUser = Rx<User?>(null);
 

@@ -1,5 +1,7 @@
-import 'dart:convert';
+/// Copyright (c) 2022 Dannell Kobby. All rights reserved.
+/// Use of this source code is governed by MIT license that can be found in the LICENSE file.
 
+import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:moontime/models/cast.dart';
@@ -28,8 +30,10 @@ class EpisodeDetailsController extends GetxController
   }
 
   onError(err) {
-    if (kDebugMode) print('getCastInEpisode.error $err');
-    toastError(title: 'Failed to load Cast', message: '$err');
+    if (kDebugMode) {
+      print('getCastInEpisode.error $err');
+      toastError(title: 'Failed to load Cast', message: '$err');
+    }
     change(null, status: RxStatus.error(err.toString()));
   }
 

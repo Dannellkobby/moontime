@@ -1,12 +1,13 @@
-import 'dart:io';
+/// Copyright (c) 2022 Dannell Kobby. All rights reserved.
+/// Use of this source code is governed by MIT license that can be found in the LICENSE file.
 
+import 'dart:io';
 import 'package:blurrycontainer/blurrycontainer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:iconly/iconly.dart';
 import 'package:moontime/controllers/navigation_controller.dart';
-import 'package:moontime/controllers/theme_controller.dart';
 import 'package:moontime/utilities/colours.dart';
 import 'package:moontime/utilities/constants.dart';
 import 'package:moontime/utilities/widgets.dart';
@@ -71,14 +72,10 @@ class MainLayout extends GetView<NavigationController> {
                   end: Alignment.topRight,
                   colors: Theme.of(context).brightness == Brightness.dark
                       ? [
-                          // const Color(0xFF12171A),
-                          // const Color(0xFF130C17),
                           const Color(0xFF100417),
                           const Color(0xFF051013),
                         ]
                       : [
-                          // Color(0xFF8EC5FC),
-                          // Color(0xFFE0C3FC),
                           const Color(0xFFE5EEF8),
                           const Color(0xFFF9F6FC),
                         ],

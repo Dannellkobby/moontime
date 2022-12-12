@@ -1,3 +1,6 @@
+/// Copyright (c) 2022 Dannell Kobby. All rights reserved.
+/// Use of this source code is governed by MIT license that can be found in the LICENSE file.
+
 import 'package:blurrycontainer/blurrycontainer.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/foundation.dart';
@@ -12,6 +15,7 @@ import 'package:moontime/utilities/colours.dart';
 import 'package:moontime/utilities/constants.dart';
 import 'package:moontime/utilities/strings.dart';
 import 'package:moontime/utilities/widgets.dart';
+import 'package:moontime/views/screens/error_page.dart';
 import 'package:moontime/views/widgets/card_episode.dart';
 import 'package:moontime/views/widgets/card_show.dart';
 import 'package:shimmer/shimmer.dart';
@@ -115,7 +119,7 @@ class Home extends GetView<HomeController> {
                       ],
                     ),
                     onError: (error) =>
-                        const Center(child: Text('Something went wrong')),
+                        ErrorPage(title: 'Something is not right', error: error,),
                   ),
                 ),
                 const SliverToBoxAdapter(
@@ -131,15 +135,17 @@ class Home extends GetView<HomeController> {
                   title: Padding(
                     padding: const EdgeInsets.all(kFormSpacing),
                     child: Obx(
-                      ()=> Row(
-                  mainAxisAlignment:MainAxisAlignment.center,
+                      () => Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            controller.fetching.isTrue?'':'Browse All Series ',
+                            controller.fetching.isTrue
+                                ? ''
+                                : 'Browse All Series ',
                             style: Theme.of(context).textTheme.subtitle1,
                           ),
-                          if(controller.fetching.isTrue)
-                            getCircularProgressIndicator(height: 32,width: 32)
+                          if (controller.fetching.isTrue)
+                            getCircularProgressIndicator(height: 32, width: 32)
                         ],
                       ),
                     ),
@@ -154,8 +160,9 @@ class Home extends GetView<HomeController> {
                     right: kFormSpacing / 2,
                     top: kToolbarHeight),
                 child: NotificationListener<ScrollNotification>(
-                  onNotification: (scrollNotification){
-                    if(scrollNotification.metrics.pixels == scrollNotification.metrics.maxScrollExtent){
+                  onNotification: (scrollNotification) {
+                    if (scrollNotification.metrics.pixels ==
+                        scrollNotification.metrics.maxScrollExtent) {
                       controller.loadMoreShows();
                       // setState(() {
                       //   items_number += 10 ;
@@ -163,15 +170,10 @@ class Home extends GetView<HomeController> {
                     }
                     return true;
                   },
-
                   child: MasonryGridView.builder(
                     gridDelegate:
                         const SliverSimpleGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: 3),
-                    // primary: false,
-                    // shrinkWrap: true,
-                    // addAutomaticKeepAlives: true,
-                    // physics: const AlwaysScrollableScrollPhysics(),
                     physics: const BouncingScrollPhysics(),
                     mainAxisSpacing: kFormSpacing,
                     crossAxisSpacing: 10,
@@ -188,9 +190,10 @@ class Home extends GetView<HomeController> {
           ),
           Positioned(
             left: kFormSpacing,
-            top: (MediaQuery.of(context).viewPadding.top)-4,
+            top: (MediaQuery.of(context).viewPadding.top) - 4,
             child: SvgPicture.asset(
-              'assets/icons/logo_lettermark.svg',height: 24,width: 24,
+              'assets/icons/logo_lettermark.svg', height: 24,
+              width: 24,
               color: Theme.of(context).colorScheme.onPrimary,
               allowDrawingOutsideViewBox: true,
               clipBehavior: Clip.none,
@@ -224,56 +227,6 @@ class Home extends GetView<HomeController> {
           ),
         ],
       ),
-    );
-  }
-}
-
-class MoontimePlaceholder extends StatelessWidget {
-  final Color? logoColor;
-  final double? height;
-  final double? blur;
-  final double? logoSize;
-
-  const MoontimePlaceholder({
-    Key? key,
-    this.logoColor,
-    this.height,
-    this.blur,
-    this.logoSize,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Stack(
-      alignment: Alignment.center,
-      children: [
-        SvgPicture.asset(
-          'assets/icons/logo_lettermark.svg',
-          height: logoSize ?? 32,
-          alignment: Alignment.center,
-          color: logoColor ?? Colours.moonBlueLight,
-        ),
-        BlurryContainer(
-          blur: blur ?? 4,
-          height: height ?? 100,
-          width: double.maxFinite,
-          elevation: 0,
-          color: Theme.of(context).colorScheme.onPrimary.withOpacity(0.1),
-          padding: const EdgeInsets.all(0),
-          borderRadius: const BorderRadius.all(Radius.circular(0)),
-          child: Container(
-            decoration: BoxDecoration(
-                gradient: LinearGradient(
-              begin: Alignment.bottomLeft,
-              end: Alignment.topRight,
-              colors: [
-                const Color(0xFF8EC5FC).withOpacity(0.1),
-                const Color(0xFFE0C3FC).withOpacity(0.1),
-              ],
-            )),
-          ),
-        ),
-      ],
     );
   }
 }

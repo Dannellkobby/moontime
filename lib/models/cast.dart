@@ -1,3 +1,6 @@
+/// Copyright (c) 2022 Dannell Kobby. All rights reserved.
+/// Use of this source code is governed by MIT license that can be found in the LICENSE file.
+
 import 'package:moontime/models/character.dart';
 import 'package:moontime/models/person.dart';
 
@@ -6,7 +9,6 @@ class Cast {
   Character? character;
   bool? self;
   bool? voice;
-
 
   Cast({this.person});
 
@@ -26,5 +28,4 @@ class Cast {
 
   static List<Cast> listFromJson(list) =>
       List<Cast>.from(list.map((i) => Cast.fromJson(i)));
-
 }

@@ -1,9 +1,11 @@
+/// Copyright (c) 2022 Dannell Kobby. All rights reserved.
+/// Use of this source code is governed by MIT license that can be found in the LICENSE file.
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:get/get.dart';
 import 'package:iconly/iconly.dart';
-import 'package:moontime/controllers/navigation_controller.dart';
 import 'package:moontime/controllers/search_controller.dart';
 import 'package:moontime/models/cast.dart';
 import 'package:moontime/models/person.dart';
@@ -165,49 +167,40 @@ class Search extends GetView<SearchController> {
       () => Container(
         alignment: Alignment.center,
         decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(100),
-              gradient:
-
-              (Theme.of(context).brightness ==
-                  Brightness.dark)?
-              controller.searchScope.value == scope
-                  ?  const LinearGradient(colors: [
-                   Color(0xFF24152A),
-                   Color(0xFF0E2E38),
-                    ])
-                  : const LinearGradient(colors: [
-                Colours.darkBg,
-                Colours.darkShade800,
-                // Color(0xFF250C34),
-              ]):
-
-              controller.searchScope.value == scope
-                  ?  const LinearGradient(colors: [
-                Color(0xFFE9D5F5),
-                Color(0xFFD3E7EF),
-              ])
-                  : const LinearGradient(colors: [
-                Colours.lightBg,
-                Colours.lightShade200,
-                // Color(0xFF250C34),
-              ])
-        ),
+            borderRadius: BorderRadius.circular(100),
+            gradient: (Theme.of(context).brightness == Brightness.dark)
+                ? controller.searchScope.value == scope
+                    ? const LinearGradient(colors: [
+                        Color(0xFF24152A),
+                        Color(0xFF0E2E38),
+                      ])
+                    : const LinearGradient(colors: [
+                        Colours.darkBg,
+                        Colours.darkShade800,
+                      ])
+                : controller.searchScope.value == scope
+                    ? const LinearGradient(colors: [
+                        Color(0xFFE9D5F5),
+                        Color(0xFFD3E7EF),
+                      ])
+                    : const LinearGradient(colors: [
+                        Colours.lightBg,
+                        Colours.lightShade200,
+                      ])),
         height: 32,
         margin: const EdgeInsets.symmetric(horizontal: 4),
         width: 96,
-        padding:
-              const EdgeInsets.only(top: 0, bottom: 0, left: 0, right: 0),
+        padding: const EdgeInsets.only(top: 0, bottom: 0, left: 0, right: 0),
         child: InkWell(
           onTap: () => controller.tabController.animateTo(scope.index),
-
           child: Text(
-              title,
-              strutStyle: const StrutStyle(height: 1.2, forceStrutHeight: true),
-              style: Theme.of(context).textTheme.button?.copyWith(
-                  color: controller.searchScope.value == scope
-                      ? null
-                      : Theme.of(context).colorScheme.onSurface),
-            ),
+            title,
+            strutStyle: const StrutStyle(height: 1.2, forceStrutHeight: true),
+            style: Theme.of(context).textTheme.button?.copyWith(
+                color: controller.searchScope.value == scope
+                    ? null
+                    : Theme.of(context).colorScheme.onSurface),
+          ),
         ),
       ),
     );
@@ -230,39 +223,38 @@ class SearchResultsPage extends StatelessWidget {
                   ? getCircularProgressIndicator()
                   : buildNoResult()
           : MasonryGridView.builder(
-                  mainAxisSpacing: kFormSpacing,
-                  crossAxisSpacing: 10,
+              mainAxisSpacing: kFormSpacing,
+              crossAxisSpacing: 10,
               padding: const EdgeInsets.only(
                   left: kFormSpacing / 2,
                   right: kFormSpacing / 2,
-                  top: kToolbarHeight/2),
+                  top: kToolbarHeight / 2),
               gridDelegate:
-                      const SliverSimpleGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 3),
-                  keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
-                  itemCount: controller
-                      .mapOfSearchResults[controller.searchScope.value.name]
-                      ?.length,
-                  physics: const BouncingScrollPhysics(),
-                  itemBuilder: (BuildContext context, int index) {
-                    dynamic item;
-                    if (controller.searchScope.value == SearchScope.people) {
-                      item = controller
-                              .mapOfSearchResults[controller.searchScope.value.name]
-                          ?[index] as Person;
-                    } else if (controller.searchScope.value == SearchScope.series) {
-                      item = controller
-                              .mapOfSearchResults[controller.searchScope.value.name]
-                          ?[index] as Show;
-                    }
-                    return (controller.searchScope.value == SearchScope.people)
-                        ? SizedBox(
+                  const SliverSimpleGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 3),
+              keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+              itemCount: controller
+                  .mapOfSearchResults[controller.searchScope.value.name]
+                  ?.length,
+              physics: const BouncingScrollPhysics(),
+              itemBuilder: (BuildContext context, int index) {
+                dynamic item;
+                if (controller.searchScope.value == SearchScope.people) {
+                  item = controller
+                          .mapOfSearchResults[controller.searchScope.value.name]
+                      ?[index] as Person;
+                } else if (controller.searchScope.value == SearchScope.series) {
+                  item = controller
+                          .mapOfSearchResults[controller.searchScope.value.name]
+                      ?[index] as Show;
+                }
+                return (controller.searchScope.value == SearchScope.people)
+                    ? SizedBox(
                         width: kCardWidthSmall,
                         height: 192,
-
                         child: CardCast(cast: Cast(person: item)))
-                        : CardShow(show: item);
-                  }),
+                    : CardShow(show: item);
+              }),
     );
   }
 
@@ -302,8 +294,8 @@ class SearchResultsPage extends StatelessWidget {
         child: Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Padding(
-            padding: const EdgeInsets.all(24),
+        const Padding(
+            padding: EdgeInsets.all(24),
             child: Icon(
               IconlyBroken.search,
               size: 64,

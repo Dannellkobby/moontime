@@ -1,3 +1,6 @@
+/// Copyright (c) 2022 Dannell Kobby. All rights reserved.
+/// Use of this source code is governed by MIT license that can be found in the LICENSE file.
+
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -49,7 +52,6 @@ class _ErrorPageState extends State<ErrorPage> {
               style: Theme.of(context)
                   .textTheme
                   .bodyText2
-                  // ?.copyWith(color: Colours.redError),
             ),
           ),
           if(widget.onPressed!=null)

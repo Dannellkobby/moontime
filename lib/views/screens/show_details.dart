@@ -1,3 +1,6 @@
+/// Copyright (c) 2022 Dannell Kobby. All rights reserved.
+/// Use of this source code is governed by MIT license that can be found in the LICENSE file.
+
 import 'package:blurrycontainer/blurrycontainer.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -13,11 +16,10 @@ import 'package:moontime/models/show.dart';
 import 'package:moontime/utilities/colours.dart';
 import 'package:moontime/utilities/constants.dart';
 import 'package:moontime/utilities/widgets.dart';
-import 'package:moontime/views/screens/home.dart';
 import 'package:moontime/views/widgets/back_icon.dart';
 import 'package:moontime/views/widgets/card_cast.dart';
 import 'package:moontime/views/widgets/card_episode.dart';
-import 'package:moontime/views/widgets/scaffold_gradient.dart';
+import 'package:moontime/views/widgets/moontime_placeholder.dart';
 
 class ShowDetails extends GetView<ShowDetailsController> {
   final Show show;

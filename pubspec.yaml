@@ -1,5 +1,5 @@
 name: moontime
-description: A new Flutter project.
+description: This is an open source Flutter project for listing tv series from the tvmaze.com/api.
 
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
