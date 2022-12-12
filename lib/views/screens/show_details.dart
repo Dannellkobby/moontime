@@ -13,6 +13,7 @@ import 'package:moontime/utilities/colours.dart';
 import 'package:moontime/utilities/constants.dart';
 import 'package:moontime/utilities/widgets.dart';
 import 'package:moontime/views/screens/home.dart';
+import 'package:moontime/views/widgets/back_icon.dart';
 import 'package:moontime/views/widgets/card_cast.dart';
 import 'package:moontime/views/widgets/card_episode.dart';
 import 'package:moontime/views/widgets/scaffold_gradient.dart';
@@ -71,12 +72,7 @@ class ShowDetails extends GetView<ShowDetailsController> {
                       statusBarIconBrightness: Brightness.light),
                   collapsedHeight: (kToolbarHeight * 2) - MediaQuery.of(context).viewPadding.top,
                   expandedHeight: ((4 / 6) * context.height),
-                  leading: IconButton(
-                      onPressed: () => Navigator.maybePop(context),
-                      icon: const Icon(
-                        Icons.arrow_back,
-                        color: Colors.white,
-                      )),
+                  leading:  const BackIcon(),
                   actions: [
                     LikeButton(
                         likeBuilder: (bool liked) => liked

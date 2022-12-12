@@ -8,6 +8,7 @@ class Cast {
   bool? voice;
 
 
+  Cast({this.person});
 
   Cast.fromJson(Map<String, dynamic> json)
       : voice = json['voice'],

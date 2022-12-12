@@ -2,10 +2,8 @@ import 'package:get/get.dart';
 import 'package:moontime/models/episode.dart';
 import 'package:moontime/utilities/constants.dart';
 
-class EpisodesInShowProvider extends GetConnect {
-  final int showID;
+class AiringEpisodesProvider extends GetConnect{
 
-  EpisodesInShowProvider({required this.showID});
 
   @override
   void onInit() {
@@ -15,6 +13,6 @@ class EpisodesInShowProvider extends GetConnect {
     httpClient.timeout = const Duration(seconds: 60);
   }
 
-  Future<Response<List<Episode>>> getEpisodes() =>
-      get<List<Episode>>('/shows/$showID/episodes');
+  Future<Response<List<Episode>>> getEpisodes() => get<List<Episode>>('/schedule');
+
 }

@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter/services.dart';
 import 'package:moontime/models/episode.dart';
-import 'package:moontime/services/all_episodes_provider.dart';
+import 'package:moontime/services/airing_episodes_provider.dart';
 
 enum NavbarScreens { home, favourites, settings, }
 

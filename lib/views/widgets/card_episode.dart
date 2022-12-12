@@ -28,6 +28,7 @@ class CardEpisode extends StatelessWidget {
           if(tapToDetails)
             {
               Get.toNamed(Strings.routeEpisodeDetails,
+                  parameters: {Strings.keyID: '${episode.id}'},
                   arguments: {
                 Strings.keyShow: show??episode.show,
                 Strings.keyEpisode: episode
@@ -37,7 +38,8 @@ class CardEpisode extends StatelessWidget {
 
           else if(episode.show!=null) {
             Get.toNamed(Strings.routeShowDetails,
-              arguments: {Strings.keyShow: episode.show});
+                parameters: {Strings.keyID: '${episode.show?.id}'},
+                arguments: {Strings.keyShow: episode.show});
           }
         },
         child: Stack(

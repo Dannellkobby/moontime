@@ -3,36 +3,59 @@ import 'package:get/get.dart';
 import 'package:moontime/models/episode.dart';
 import 'package:moontime/models/show.dart';
 import 'package:moontime/services/all_shows_provider.dart';
-import 'package:moontime/services/all_episodes_provider.dart';
+import 'package:moontime/services/airing_episodes_provider.dart';
 import 'package:moontime/utilities/widgets.dart';
 import 'package:tuple/tuple.dart';
 
-class HomeController extends GetxController with StateMixin<Tuple2<List<Episode>?, List<Show>?>> {
-
-  final AllEpisodesProvider episodesProvider;
+class HomeController extends GetxController
+    with StateMixin<Tuple2<List<Episode>?, List<Show>?>> {
+  final AiringEpisodesProvider airingEpisodes;
   final AllSeriesProvider seriesProvider;
   List<Episode>? episodes;
-  List<Show>? shows;
+  RxList<Show>? shows = RxList();
+  static const int tvMazeMaxPageIndex = 262;
+  final RxInt currentPage = RxInt(tvMazeMaxPageIndex);
+  static const int pageSize = 250;
 
-  HomeController(
-      {required this.episodesProvider, required this.seriesProvider});
+  final RxBool fetching = RxBool(false);
+
+  HomeController({required this.airingEpisodes, required this.seriesProvider});
+
+  @override
+  void onReady() {
+    super.onReady();
+    loadMoreShows();
+  }
+
+  loadMoreShows() async {
+    if(fetching.isTrue) return;
+    fetching.value = true;
+    print('LOAD MORE CALLED ${currentPage.value}');
+    List? newList = await seriesProvider.loadMoreShows(currentPage.value);
+    if (newList?.isEmpty ?? true) {
+      print('LIST ENDED');
+    } else {
+      currentPage.value--;
+      shows?.addAll(newList as List<Show>);
+    }
+    fetching.value = false;
+  }
 
   @override
   void onInit() {
     super.onInit();
-    episodesProvider.getEpisodes().then(
+
+    airingEpisodes.getEpisodes().then(
       (response) {
         if (response.hasError) {
           onError(response.statusText);
           response.statusText;
         } else {
           episodes = response.body;
-          shows = Show.listFromJson(seriesProvider.getSeries().reversed);
-          change(Tuple2(episodes!, shows!), status: RxStatus.success());
+          change(Tuple2(episodes!, shows), status: RxStatus.success());
         }
       },
     );
-
   }
 
   onError(err) {

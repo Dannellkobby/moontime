@@ -34,7 +34,9 @@ class CardShow extends StatelessWidget {
     return ClipRRect(
       borderRadius: bRadii,
       child: InkWell(
-        onTap: () => Get.toNamed(Strings.routeShowDetails, arguments: {Strings.keyShow: show}),
+        onTap: () => Get.toNamed(Strings.routeShowDetails,
+            parameters: {Strings.keyID: '${show.id}'},
+            arguments: {Strings.keyShow: show}),
         borderRadius: bRadii,
         child: Column(
           children: [

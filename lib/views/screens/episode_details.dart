@@ -9,11 +9,13 @@ import 'package:iconly/iconly.dart';
 import 'package:intl/intl.dart';
 import 'package:like_button/like_button.dart';
 import 'package:moontime/controllers/episode_details_controller.dart';
+import 'package:moontime/controllers/show_details_controller.dart';
 import 'package:moontime/models/episode.dart';
 import 'package:moontime/utilities/colours.dart';
 import 'package:moontime/utilities/constants.dart';
 import 'package:moontime/utilities/widgets.dart';
 import 'package:moontime/views/screens/home.dart';
+import 'package:moontime/views/widgets/back_icon.dart';
 import 'package:moontime/views/widgets/card_cast.dart';
 
 class EpisodeDetails extends GetView<EpisodeDetailsController> {
@@ -85,12 +87,7 @@ class EpisodeDetails extends GetView<EpisodeDetailsController> {
                               .viewPadding
                               .top)
                       : (((4 / 6) * context.height)),
-                  leading: IconButton(
-                      onPressed: () => Navigator.maybePop(context),
-                      icon: const Icon(
-                        Icons.arrow_back,
-                        color: Colors.white,
-                      )),
+                  leading:  BackIcon(),
                   actions: [
                     LikeButton(
                         likeBuilder: (bool liked) =>
@@ -356,61 +353,60 @@ class EpisodeDetails extends GetView<EpisodeDetailsController> {
                       ),
                     ),
                   ),
-                controller.obx(
-                        (state) =>
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            if((controller.state!.item1?.isNotEmpty??false))
-                            Padding(
-                              padding: const EdgeInsets.only(
-                                  left: kFormSpacing,
-                                  right: kFormSpacing,
-                                  bottom: kFormSpacing / 2),
-                              child: Text(
-                                'Cast',
-                                style: Theme
-                                    .of(context)
-                                    .textTheme
-                                    .headline6
-                                    ?.copyWith(color: Colors.white),
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: kFormSpacing / 2),
-                              child: SizedBox(
-                                height: 192,
-                                child: (ListView.separated(
-                                  physics: const BouncingScrollPhysics(),
-                                  shrinkWrap: true,
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: kFormSpacing / 2),
-                                  scrollDirection: Axis.horizontal,
-                                  itemCount: controller.state?.item1?.length??0,
-                                  itemBuilder:
-                                      (BuildContext context, int indexEpisode) {
-                                    return SizedBox(
-                                        width: 112,
-                                        child: CardCast(
-                                            cast: controller.state!.item1!.elementAt(indexEpisode)));
-                                  },
-                                  separatorBuilder:
-                                      (BuildContext context, int index) =>
-                                  const SizedBox(width: 12),
-                                )),
-                              ),
-                            ),
-                          ],
-                        )
-                ),
+                if(Get.find<ShowDetailsController>().castInShow?.isNotEmpty??false)
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                        Padding(
+                          padding: const EdgeInsets.only(
+                              left: kFormSpacing,
+                              right: kFormSpacing,
+                              bottom: kFormSpacing / 2),
+                          child: Text(
+                            'Cast',
+                            style: Theme
+                                .of(context)
+                                .textTheme
+                                .headline6
+                                ?.copyWith(color: Colors.white),
+                          ),
+                        ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: kFormSpacing / 2),
+                        child: SizedBox(
+                          height: 192,
+                          child: (ListView.separated(
+                            physics: const BouncingScrollPhysics(),
+                            shrinkWrap: true,
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: kFormSpacing / 2),
+                            scrollDirection: Axis.horizontal,
+                            itemCount: Get.find<ShowDetailsController>().castInShow?.length??0,
+                            itemBuilder:
+                                (BuildContext context, int indexEpisode) {
+                              return SizedBox(
+                                  width: kCardWidthSmall,
+                                  child: CardCast(
+                                      cast: Get.find<ShowDetailsController>().castInShow!.elementAt(indexEpisode)));
+                            },
+                            separatorBuilder:
+                                (BuildContext context, int index) =>
+                            const SizedBox(width: 12),
+                          )),
+                        ),
+                      ),
+                    ],
+                  ),
+
                 controller.obx(
                   onLoading: const SizedBox.shrink(),
                         (state) =>
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            if((controller.state!.item2?.isNotEmpty??false))
+                            const SizedBox(height: kFormSpacing),
+                            if((controller.state?.isNotEmpty??false))
                             Padding(
                               padding: const EdgeInsets.only(
                                   left: kFormSpacing,
@@ -436,13 +432,13 @@ class EpisodeDetails extends GetView<EpisodeDetailsController> {
                                   padding: const EdgeInsets.symmetric(
                                       horizontal: kFormSpacing / 2),
                                   scrollDirection: Axis.horizontal,
-                                  itemCount: controller.state?.item2?.length??0,
+                                  itemCount: controller.state?.length??0,
                                   itemBuilder:
                                       (BuildContext context, int indexEpisode) {
                                     return SizedBox(
                                         width: 112,
                                         child: CardCast(
-                                            cast: controller.state!.item2!.elementAt(indexEpisode)));
+                                            cast: controller.state!.elementAt(indexEpisode)));
                                   },
                                   separatorBuilder:
                                       (BuildContext context, int index) =>

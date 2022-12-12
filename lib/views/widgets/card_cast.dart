@@ -68,7 +68,7 @@ class CardCast extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  '${cast.character?.name}',
+                  cast.character?.name??'',
                   textAlign: TextAlign.start,
                   maxLines: 1,
                   style: Theme.of(context)

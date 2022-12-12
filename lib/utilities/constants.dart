@@ -19,6 +19,7 @@ const String kFontIsidora = 'Isidora';
 const String kFontIsidoraSans = 'IsidoraSans';
 const String kNa = 'n/a';
 const String kTVMazeBaseUrl = 'https://api.tvmaze.com';
+const String kTVMazeAuthority = 'api.tvmaze.com';
 enum SearchStatus {
   idle,
   connecting,

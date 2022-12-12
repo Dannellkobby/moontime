@@ -16,8 +16,9 @@ class AppInitialization extends GetxService {
     );
     Get.put<NavigationController>(NavigationController());
     Get.put<ThemeController>(ThemeController());
+    Get.lazyPut<ShowDetailsController>(() => ShowDetailsController());
     Get.lazyPut<HomeController>(() => HomeController(
-        episodesProvider: Get.find(), seriesProvider: Get.find()));
+        airingEpisodes: Get.find(), seriesProvider: Get.find()));
 
     Future.delayed(const Duration(seconds: 2)).then((value) {
       //TODO Add splashscreen

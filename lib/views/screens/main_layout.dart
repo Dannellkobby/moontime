@@ -6,9 +6,11 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:iconly/iconly.dart';
 import 'package:moontime/controllers/navigation_controller.dart';
+import 'package:moontime/controllers/search_controller.dart';
 import 'package:moontime/controllers/theme_controller.dart';
 import 'package:moontime/utilities/colours.dart';
 import 'package:moontime/utilities/constants.dart';
+import 'package:moontime/utilities/strings.dart';
 import 'package:moontime/utilities/widgets.dart';
 import 'package:moontime/views/screens/home.dart';
 import 'package:moontime/views/widgets/bottom_nav_bar_menu.dart';
@@ -41,8 +43,6 @@ class MainLayout extends GetView<NavigationController> {
         child: AnnotatedRegion<SystemUiOverlayStyle>(
           value: SystemUiOverlayStyle(
             statusBarColor: Colors.transparent,
-            // statusBarColor: Theme.of(context).backgroundColor,
-            // systemNavigationBarColor: Colors.transparent,
             systemNavigationBarColor: Theme.of(context).backgroundColor,
             systemNavigationBarIconBrightness:
                 Theme.of(context).brightness == Brightness.light

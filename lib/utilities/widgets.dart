@@ -116,3 +116,17 @@ getDividerVertical({BuildContext? context,
 
   );
 }
+
+Widget getCircularProgressIndicator({double width = 32, double height = 32, double strokeWidth = 2}) {
+  return Center(
+    child: SizedBox(
+      width: width,
+      height: height,
+      child:  CircularProgressIndicator(
+        strokeWidth: strokeWidth,
+        backgroundColor: Colours.moonBlueLight,
+        valueColor: const AlwaysStoppedAnimation<Color>(Colours.moonBlueDeep),
+      ),
+    ),
+  );
+}

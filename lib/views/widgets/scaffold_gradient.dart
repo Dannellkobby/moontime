@@ -35,6 +35,7 @@ class ScaffoldGradient extends StatelessWidget {
         ),
          Scaffold(
           body: body,
+
            bottomNavigationBar:bottomNavigationBar,
            primary: primary??false,
            appBar: appBar,

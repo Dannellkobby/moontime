@@ -1,11 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
-import 'package:moontime/models/episode.dart';
 import 'package:moontime/models/show.dart';
-import 'package:moontime/services/episodes_in_show_provider.dart';
 import 'package:moontime/services/person_provider.dart';
 import 'package:moontime/utilities/widgets.dart';
-import "package:collection/collection.dart";
 
 class PersonDetailsController extends GetxController with StateMixin<List<Show>?> {
 
@@ -20,13 +17,6 @@ class PersonDetailsController extends GetxController with StateMixin<List<Show>?
     super.onInit();
     personProvider.getPersonCasts().then(
       (response) {
-        if (kDebugMode) {
-          print('getEpisodes.status: ${response.status.code}');
-          print('getEpisodes.statusText: ${response.statusText}');
-          print('getEpisodes.hasError: ${response.hasError}');
-          print('getEpisodes.request: ${response.request}');
-          print('getEpisodes.isOk: ${response.isOk}');
-        }
         if (response.hasError) {
           onError(response.statusText);
           response.statusText;
