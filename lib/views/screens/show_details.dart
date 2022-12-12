@@ -7,6 +7,7 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
 import 'package:iconly/iconly.dart';
 import 'package:like_button/like_button.dart';
+import 'package:moontime/controllers/favorites_controller.dart';
 import 'package:moontime/controllers/show_details_controller.dart';
 import 'package:moontime/models/show.dart';
 import 'package:moontime/utilities/colours.dart';
@@ -70,20 +71,31 @@ class ShowDetails extends GetView<ShowDetailsController> {
                   systemOverlayStyle: const SystemUiOverlayStyle(
                       statusBarBrightness: Brightness.light,
                       statusBarIconBrightness: Brightness.light),
-                  collapsedHeight: (kToolbarHeight * 2) - MediaQuery.of(context).viewPadding.top,
+                  collapsedHeight: (kToolbarHeight * 2) -
+                      MediaQuery.of(context).viewPadding.top,
                   expandedHeight: ((4 / 6) * context.height),
-                  leading:  const BackIcon(),
+                  leading: const BackIcon(),
                   actions: [
-                    LikeButton(
-                        likeBuilder: (bool liked) => liked
-                            ? const Icon(
-                                IconlyBold.heart,
-                                color: Colours.moonOrangeLight,
-                              )
-                            : const Icon(
-                                IconlyBroken.heart,
-                                color: Colours.white,
-                              )),
+                    Obx(
+                      () => LikeButton(
+                          isLiked: (Get.find<FavoritesController>()
+                              .favoriteShows
+                              .any((e) => e.id == show.id)),
+                          onTap: (bool liked) async {
+                            Get.find<FavoritesController>()
+                                .toggleFavoriteShow(show);
+                            return Future.value(true);
+                          },
+                          likeBuilder: (bool liked) => liked
+                              ? const Icon(
+                                  IconlyBold.heart,
+                                  color: Colours.moonOrangeLight,
+                                )
+                              : const Icon(
+                                  IconlyBroken.heart,
+                                  color: Colours.white,
+                                )),
+                    ),
                     const SizedBox(
                       width: kFormSpacing,
                     )
@@ -169,74 +181,74 @@ class ShowDetails extends GetView<ShowDetailsController> {
                                       ),
                                     ),
                                   ),
-
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: [
-                                        if (show.genres != null &&
-                                            (show.genres?.isNotEmpty ?? false))
-                                          Text(
-                                            show.genres!
-                                                .map((e) => '$e  ')
-                                                .toString()
-                                                .replaceAll(RegExp(r'[^\w\s]+'), ''),
-                                            textAlign: TextAlign.center,
-                                            maxLines: 1,
-                                            strutStyle: const StrutStyle(
-                                                height: 1.2, forceStrutHeight: true),
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .caption
-                                                ?.copyWith(
-                                              color: Colors.white,
-                                              fontSize: 12,
-                                              shadows: <Shadow>[
-                                                Shadow(
-                                                  offset: const Offset(0.5, 0.5),
-                                                  blurRadius: 1.0,
-                                                  // color: Color.fromARGB(255, 0, 0, 0),
-                                                  color: Theme.of(context)
-                                                      .colorScheme
-                                                      .background,
-                                                ),
-                                              ],
-                                              // color: Colors.white
-                                            ),
-                                          ),
-
-
-                                          controller.obx(
-                                            onLoading:const SizedBox.shrink(),
-                                            onError:(err)=>const SizedBox.shrink(),
-
-                                            (state)=> Text(
-                                              '${((controller.seasonsAndEpisodes?.keys.length??0)<1)?'No':'${controller.seasonsAndEpisodes?.keys.length}'} Season${(controller.seasonsAndEpisodes?.keys.length??0)>1?'s':''}',
-                                              textAlign: TextAlign.center,
-                                              maxLines: 1,
-                                              strutStyle: const StrutStyle(
-                                                  height: 1.2, forceStrutHeight: true),
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .caption
-                                                  ?.copyWith(
-                                                color: Colors.white,
-                                                fontSize: 12,
-                                                shadows: <Shadow>[
-                                                  Shadow(
-                                                    offset: const Offset(0.5, 0.5),
-                                                    blurRadius: 1.0,
-                                                    // color: Color.fromARGB(255, 0, 0, 0),
-                                                    color: Theme.of(context)
-                                                        .colorScheme
-                                                        .background,
-                                                  ),
-                                                ],
-                                                // color: Colors.white
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      if (show.genres != null &&
+                                          (show.genres?.isNotEmpty ?? false))
+                                        Text(
+                                          show.genres!
+                                              .map((e) => '$e  ')
+                                              .toString()
+                                              .replaceAll(
+                                                  RegExp(r'[^\w\s]+'), ''),
+                                          textAlign: TextAlign.center,
+                                          maxLines: 1,
+                                          strutStyle: const StrutStyle(
+                                              height: 1.2,
+                                              forceStrutHeight: true),
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .caption
+                                              ?.copyWith(
+                                            color: Colors.white,
+                                            fontSize: 12,
+                                            shadows: <Shadow>[
+                                              Shadow(
+                                                offset: const Offset(0.5, 0.5),
+                                                blurRadius: 1.0,
+                                                // color: Color.fromARGB(255, 0, 0, 0),
+                                                color: Theme.of(context)
+                                                    .colorScheme
+                                                    .background,
                                               ),
-                                            ),
+                                            ],
+                                            // color: Colors.white
                                           ),
-                                        ],
-                                    ),
+                                        ),
+                                      controller.obx(
+                                        onLoading: const SizedBox.shrink(),
+                                        onError: (err) =>
+                                            const SizedBox.shrink(),
+                                        (state) => Text(
+                                          '${((controller.seasonsAndEpisodes?.keys.length ?? 0) < 1) ? 'No' : '${controller.seasonsAndEpisodes?.keys.length}'} Season${(controller.seasonsAndEpisodes?.keys.length ?? 0) > 1 ? 's' : ''}',
+                                          textAlign: TextAlign.center,
+                                          maxLines: 1,
+                                          strutStyle: const StrutStyle(
+                                              height: 1.2,
+                                              forceStrutHeight: true),
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .caption
+                                              ?.copyWith(
+                                            color: Colors.white,
+                                            fontSize: 12,
+                                            shadows: <Shadow>[
+                                              Shadow(
+                                                offset: const Offset(0.5, 0.5),
+                                                blurRadius: 1.0,
+                                                // color: Color.fromARGB(255, 0, 0, 0),
+                                                color: Theme.of(context)
+                                                    .colorScheme
+                                                    .background,
+                                              ),
+                                            ],
+                                            // color: Colors.white
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 ],
                               ),
                             ),
@@ -262,32 +274,27 @@ class ShowDetails extends GetView<ShowDetailsController> {
                     Text(
                       ' ${show.premiered?.year ?? 2022}',
                       style: const TextStyle(color: Colours.lightShade500),
-                      strutStyle: const StrutStyle(
-                          height: 1.2, forceStrutHeight: true),
+                      strutStyle:
+                          const StrutStyle(height: 1.2, forceStrutHeight: true),
                     ),
                     getDividerVertical(
-                        height: 20,
-                        width: 0.51,
-                        color: Colours.lightShade500),
-                    const Icon(IconlyBold.video,
-                        color: Colours.lightShade500),
+                        height: 20, width: 0.51, color: Colours.lightShade500),
+                    const Icon(IconlyBold.video, color: Colours.lightShade500),
                     Text(
                       ' ${show.runtime ?? 30}m',
                       style: const TextStyle(color: Colours.lightShade500),
-                      strutStyle: const StrutStyle(
-                          height: 1.2, forceStrutHeight: true),
+                      strutStyle:
+                          const StrutStyle(height: 1.2, forceStrutHeight: true),
                     ),
                     getDividerVertical(
-                        height: 20,
-                        width: 0.51,
-                        color: Colours.lightShade500),
+                        height: 20, width: 0.51, color: Colours.lightShade500),
                     const Icon(IconlyBold.time_square,
                         size: 20, color: Colours.lightShade500),
                     Text(
                       ' ${(show.schedule?.time?.isNotEmpty ?? false) ? show.schedule?.time : 'Soon'}',
                       style: const TextStyle(color: Colours.lightShade500),
-                      strutStyle: const StrutStyle(
-                          height: 1.2, forceStrutHeight: true),
+                      strutStyle:
+                          const StrutStyle(height: 1.2, forceStrutHeight: true),
                     ),
                   ],
                 ),
@@ -331,8 +338,7 @@ class ShowDetails extends GetView<ShowDetailsController> {
                       direction: Axis.horizontal,
                       allowHalfRating: true,
                       itemCount: 5,
-                      itemPadding:
-                          const EdgeInsets.symmetric(horizontal: 1.0),
+                      itemPadding: const EdgeInsets.symmetric(horizontal: 1.0),
                       ratingWidget: RatingWidget(
                         full: const Icon(
                           IconlyBold.star,
@@ -358,9 +364,11 @@ class ShowDetails extends GetView<ShowDetailsController> {
                     child: Theme(
                       data: ThemeData(
                           primaryColor: Colors.white,
-                        textTheme:  TextTheme(bodyText2:
-                        Theme.of(context).textTheme.bodyText2?.copyWith(color: Colours.lightShade500))
-                      ),
+                          textTheme: TextTheme(
+                              bodyText2: Theme.of(context)
+                                  .textTheme
+                                  .bodyText2
+                                  ?.copyWith(color: Colours.lightShade500))),
                       child: Html(
                         data: show.summary!,
                         shrinkWrap: true,
@@ -368,54 +376,56 @@ class ShowDetails extends GetView<ShowDetailsController> {
                     ),
                   ),
                 controller.obx(
-                  onEmpty: const SizedBox.shrink(),
-                        (state) => (state?.item1?.isNotEmpty??false)?
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            if((controller.state!.item1?.isNotEmpty??false))
+                    onEmpty: const SizedBox.shrink(),
+                    (state) => (state?.item1?.isNotEmpty ?? false)
+                        ? Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              if ((controller.state!.item1?.isNotEmpty ??
+                                  false))
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                      left: kFormSpacing,
+                                      right: kFormSpacing,
+                                      bottom: kFormSpacing / 2),
+                                  child: Text(
+                                    'Cast',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .headline6
+                                        ?.copyWith(color: Colors.white),
+                                  ),
+                                ),
                               Padding(
-                                padding: const EdgeInsets.only(
-                                    left: kFormSpacing,
-                                    right: kFormSpacing,
-                                    bottom: kFormSpacing / 2),
-                                child: Text(
-                                  'Cast',
-                                  style: Theme
-                                      .of(context)
-                                      .textTheme
-                                      .headline6
-                                      ?.copyWith(color: Colors.white),
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: kFormSpacing / 2),
+                                child: SizedBox(
+                                  height: 192,
+                                  child: (ListView.separated(
+                                    physics: const BouncingScrollPhysics(),
+                                    shrinkWrap: true,
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: kFormSpacing / 2),
+                                    scrollDirection: Axis.horizontal,
+                                    itemCount:
+                                        controller.state?.item1?.length ?? 0,
+                                    itemBuilder: (BuildContext context,
+                                        int indexEpisode) {
+                                      return SizedBox(
+                                          width: 112,
+                                          child: CardCast(
+                                              cast: controller.state!.item1!
+                                                  .elementAt(indexEpisode)));
+                                    },
+                                    separatorBuilder:
+                                        (BuildContext context, int index) =>
+                                            const SizedBox(width: 12),
+                                  )),
                                 ),
                               ),
-                            Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: kFormSpacing / 2),
-                              child: SizedBox(
-                                height: 192,
-                                child: (ListView.separated(
-                                  physics: const BouncingScrollPhysics(),
-                                  shrinkWrap: true,
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: kFormSpacing / 2),
-                                  scrollDirection: Axis.horizontal,
-                                  itemCount: controller.state?.item1?.length??0,
-                                  itemBuilder:
-                                      (BuildContext context, int indexEpisode) {
-                                    return SizedBox(
-                                        width: 112,
-                                        child: CardCast(
-                                            cast: controller.state!.item1!.elementAt(indexEpisode)));
-                                  },
-                                  separatorBuilder:
-                                      (BuildContext context, int index) =>
-                                  const SizedBox(width: 12),
-                                )),
-                              ),
-                            ),
-                          ],
-                        ):const SizedBox.shrink()
-                ),
+                            ],
+                          )
+                        : const SizedBox.shrink()),
                 controller.obx(
                   onLoading: const SizedBox.shrink(),
                   (state) => ListView.separated(
@@ -441,7 +451,10 @@ class ShowDetails extends GetView<ShowDetailsController> {
                                 bottom: kFormSpacing / 2),
                             child: Text(
                               'Season ${controller.seasonsAndEpisodes?.keys.elementAt(indexSeason)}',
-                              style: Theme.of(context).textTheme.headline6?.copyWith(color: Colors.white),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headline6
+                                  ?.copyWith(color: Colors.white),
                             ),
                           ),
                           Padding(

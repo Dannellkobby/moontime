@@ -6,12 +6,11 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:iconly/iconly.dart';
 import 'package:moontime/controllers/navigation_controller.dart';
-import 'package:moontime/controllers/search_controller.dart';
 import 'package:moontime/controllers/theme_controller.dart';
 import 'package:moontime/utilities/colours.dart';
 import 'package:moontime/utilities/constants.dart';
-import 'package:moontime/utilities/strings.dart';
 import 'package:moontime/utilities/widgets.dart';
+import 'package:moontime/views/screens/favorites.dart';
 import 'package:moontime/views/screens/home.dart';
 import 'package:moontime/views/widgets/bottom_nav_bar_menu.dart';
 import 'package:moontime/views/widgets/scaffold_gradient.dart';
@@ -187,7 +186,7 @@ class MainLayout extends GetView<NavigationController> {
                       //index: NavigationController.to.currentIndex.value,
                       children: [
                         const Home(),
-                        Text(NavbarScreens.favourites.name),
+                        const Favorites(),
                         Text(NavbarScreens.settings.name),
                       ],
                     ),

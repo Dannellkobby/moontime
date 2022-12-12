@@ -135,7 +135,7 @@ class Home extends GetView<HomeController> {
                   mainAxisAlignment:MainAxisAlignment.center,
                         children: [
                           Text(
-                            controller.fetching.isTrue?'Loading Latest Series ':'Browse All Series ',
+                            controller.fetching.isTrue?'':'Browse All Series ',
                             style: Theme.of(context).textTheme.subtitle1,
                           ),
                           if(controller.fetching.isTrue)

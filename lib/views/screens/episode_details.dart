@@ -9,6 +9,7 @@ import 'package:iconly/iconly.dart';
 import 'package:intl/intl.dart';
 import 'package:like_button/like_button.dart';
 import 'package:moontime/controllers/episode_details_controller.dart';
+import 'package:moontime/controllers/favorites_controller.dart';
 import 'package:moontime/controllers/show_details_controller.dart';
 import 'package:moontime/models/episode.dart';
 import 'package:moontime/utilities/colours.dart';
@@ -87,19 +88,28 @@ class EpisodeDetails extends GetView<EpisodeDetailsController> {
                               .viewPadding
                               .top)
                       : (((4 / 6) * context.height)),
-                  leading:  BackIcon(),
+                  leading:  const BackIcon(),
                   actions: [
-                    LikeButton(
-                        likeBuilder: (bool liked) =>
-                        liked
-                            ? const Icon(
-                          IconlyBold.heart,
-                          color: Colours.moonOrangeLight,
-                        )
-                            : const Icon(
-                          IconlyBroken.heart,
-                          color: Colours.white,
-                        )),
+                    Obx(
+                          () => LikeButton(
+                          isLiked: (Get.find<FavoritesController>()
+                              .favoriteEpisodes
+                              .any((e) => e.id == episode.id)),
+                          onTap: (bool liked) async {
+                            Get.find<FavoritesController>()
+                                .toggleFavoriteEpisode(episode);
+                            return Future.value(true);
+                          },
+                          likeBuilder: (bool liked) => liked
+                              ? const Icon(
+                            IconlyBold.heart,
+                            color: Colours.moonOrangeLight,
+                          )
+                              : const Icon(
+                            IconlyBroken.heart,
+                            color: Colours.white,
+                          )),
+                    ),
                     const SizedBox(
                       width: kFormSpacing,
                     )

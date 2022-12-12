@@ -11,4 +11,8 @@ class Strings {
   static const String routeCastDetails = '/cast_details';
   static const String routePersonDetails = '/person_details';
   static const String routeSearch = '/search';
+  static const String colUsers = 'users';
+  static const String colFavoriteShows = 'favShows';
+  static const String colFavoritePeople = 'favPeople';
+  static const String colFavoriteEpisodes = 'favEpisodes';
 }

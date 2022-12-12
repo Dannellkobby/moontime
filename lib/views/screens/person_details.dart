@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:iconly/iconly.dart';
 import 'package:like_button/like_button.dart';
+import 'package:moontime/controllers/favorites_controller.dart';
 import 'package:moontime/controllers/person_details_controller.dart';
 import 'package:moontime/models/person.dart';
 import 'package:moontime/utilities/colours.dart';
@@ -70,16 +71,26 @@ class PersonDetails extends GetView<PersonDetailsController> {
                   expandedHeight: ((4 / 6) * context.height),
                   leading: const BackIcon(),
                   actions: [
-                    LikeButton(
-                        likeBuilder: (bool liked) => liked
-                            ? const Icon(
-                                IconlyBold.heart,
-                                color: Colours.moonOrangeLight,
-                              )
-                            : const Icon(
-                                IconlyBroken.heart,
-                                color: Colours.white,
-                              )),
+                    Obx(
+                          () => LikeButton(
+                          isLiked: (Get.find<FavoritesController>()
+                              .favoritePeople
+                              .any((e) => e.id == person.id)),
+                          onTap: (bool liked) async {
+                            Get.find<FavoritesController>()
+                                .toggleFavoritePeople(person);
+                            return Future.value(true);
+                          },
+                          likeBuilder: (bool liked) => liked
+                              ? const Icon(
+                            IconlyBold.heart,
+                            color: Colours.moonOrangeLight,
+                          )
+                              : const Icon(
+                            IconlyBroken.heart,
+                            color: Colours.white,
+                          )),
+                    ),
                     const SizedBox(
                       width: kFormSpacing,
                     )
