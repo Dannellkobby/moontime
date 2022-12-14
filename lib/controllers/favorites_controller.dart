@@ -22,6 +22,7 @@ class FavoritesController extends GetxController {
     ever(Get.find<AuthController>().firebaseUser,
         (User? user) => user != null ? onUserChanged(user) : () {});
     super.onReady();
+    Get.find<AuthController>().firebaseUser.refresh();
   }
 
   onUserChanged(User? user) {
