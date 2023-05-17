@@ -30,3 +30,16 @@ void main() async {
     initialRoute: Strings.routeMain,
   ));
 }
+///**TODO
+/// logo Appbar issues**//
+/// bottom navbar spacing
+/// show related series
+/// loading placeholder
+/// favourite episodes, actors
+/// on showdetailsview, show medium image before full image
+/// internet connection listener. try again
+/// remove fake rating replace with genre
+/// FIREABSE
+///   log date added to favourite
+///   log analytics for favourites
+///   log device details on signup
